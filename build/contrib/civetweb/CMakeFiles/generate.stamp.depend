@@ -1,0 +1,21 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.18/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in
+C:/Program Files/CMake/share/cmake-3.18/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/CMakeDependentOption.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/CMakePackageConfigHelpers.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/CPack.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/CPackComponent.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/CheckCCompilerFlag.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/CheckCSourceCompiles.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/CheckCXXCompilerFlag.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/CheckCXXSourceCompiles.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/CheckIncludeFiles.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/GNUInstallDirs.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/InstallRequiredSystemLibraries.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/WriteBasicConfigVersionFile.cmake
+C:/Program Files/CMake/share/cmake-3.18/Templates/CPackConfig.cmake.in
+D:/bch_sc2_cpp/main/contrib/civetweb/CMakeLists.txt
+D:/bch_sc2_cpp/main/contrib/civetweb/cmake/AddCCompilerFlag.cmake
+D:/bch_sc2_cpp/main/contrib/civetweb/cmake/AddCXXCompilerFlag.cmake
+D:/bch_sc2_cpp/main/contrib/civetweb/cmake/DetermineTargetArchitecture.cmake
+D:/bch_sc2_cpp/main/contrib/civetweb/cmake/civetweb-config.cmake.in

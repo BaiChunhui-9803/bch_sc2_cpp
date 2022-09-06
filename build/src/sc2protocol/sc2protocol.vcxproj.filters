@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\common.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\data.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\debug.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\error.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\query.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\raw.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\sc2api.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\score.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\spatial.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\ui.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\common.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\data.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\debug.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\error.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\query.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\raw.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\sc2api.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\score.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\spatial.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\bch_sc2_cpp\main\build\generated\s2clientprotocol\ui.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\bch_sc2_cpp\main\build\CMakeFiles\45a4ff9d3c5c97a87a5d468595b74ddf\common.pb.cc.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\bch_sc2_cpp\main\build\CMakeFiles\45a4ff9d3c5c97a87a5d468595b74ddf\data.pb.cc.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\bch_sc2_cpp\main\build\CMakeFiles\45a4ff9d3c5c97a87a5d468595b74ddf\debug.pb.cc.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\bch_sc2_cpp\main\build\CMakeFiles\45a4ff9d3c5c97a87a5d468595b74ddf\error.pb.cc.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\bch_sc2_cpp\main\build\CMakeFiles\45a4ff9d3c5c97a87a5d468595b74ddf\query.pb.cc.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\bch_sc2_cpp\main\build\CMakeFiles\45a4ff9d3c5c97a87a5d468595b74ddf\raw.pb.cc.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\bch_sc2_cpp\main\build\CMakeFiles\45a4ff9d3c5c97a87a5d468595b74ddf\sc2api.pb.cc.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\bch_sc2_cpp\main\build\CMakeFiles\45a4ff9d3c5c97a87a5d468595b74ddf\score.pb.cc.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\bch_sc2_cpp\main\build\CMakeFiles\45a4ff9d3c5c97a87a5d468595b74ddf\spatial.pb.cc.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\bch_sc2_cpp\main\build\CMakeFiles\45a4ff9d3c5c97a87a5d468595b74ddf\ui.pb.cc.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\bch_sc2_cpp\main\src\sc2protocol\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\bch_sc2_cpp\main\protocol\s2clientprotocol\common.proto" />
+    <None Include="D:\bch_sc2_cpp\main\protocol\s2clientprotocol\data.proto" />
+    <None Include="D:\bch_sc2_cpp\main\protocol\s2clientprotocol\debug.proto" />
+    <None Include="D:\bch_sc2_cpp\main\protocol\s2clientprotocol\error.proto" />
+    <None Include="D:\bch_sc2_cpp\main\protocol\s2clientprotocol\query.proto" />
+    <None Include="D:\bch_sc2_cpp\main\protocol\s2clientprotocol\raw.proto" />
+    <None Include="D:\bch_sc2_cpp\main\protocol\s2clientprotocol\sc2api.proto" />
+    <None Include="D:\bch_sc2_cpp\main\protocol\s2clientprotocol\score.proto" />
+    <None Include="D:\bch_sc2_cpp\main\protocol\s2clientprotocol\spatial.proto" />
+    <None Include="D:\bch_sc2_cpp\main\protocol\s2clientprotocol\ui.proto" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{941C4E6C-33BC-3097-8882-314CEAFC9515}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{E11A838F-1EEA-3329-98EF-D6774B0605CC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{8D28A0FE-1F2F-37D2-9328-C49563AAAC82}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

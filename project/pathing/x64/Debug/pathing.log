@@ -1,0 +1,14 @@
+﻿  main.cpp
+d:\bch_sc2\project\pathing\ga_tsp.h(133): warning C4244: “=”: 从“time_t”转换到“unsigned int”，可能丢失数据
+d:\bch_sc2\project\pathing\ga_tsp.h(186): warning C4101: “j”: 未引用的局部变量
+d:\bch_sc2\project\pathing\ga_tsp.h(186): warning C4101: “i”: 未引用的局部变量
+d:\bch_sc2\project\pathing\ga_tsp.h(186): warning C4101: “r”: 未引用的局部变量
+d:\bch_sc2\project\pathing\ga_tsp.h(220): warning C4101: “j”: 未引用的局部变量
+d:\bch_sc2\project\pathing\ga_tsp.h(224): warning C4101: “avg”: 未引用的局部变量
+d:\bch_sc2\project\pathing\ga_tsp.h(255): warning C4101: “b”: 未引用的局部变量
+d:\bch_sc2\project\pathing\ga_tsp.h(256): warning C4101: “Temp2”: 未引用的局部变量
+d:\bch_sc2\project\pathing\ga_tsp.h(364): warning C4101: “j”: 未引用的局部变量
+d:\bch_sc2\project\pathing\ga_tsp.h(421): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+d:\bch_sc2\project\pathing\ga_tsp.h(425): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+d:\bch_sc2\project\pathing\ga_tsp.h(429): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+  pathing.vcxproj -> D:\bch_sc2\build\x64\Debug\pathing.exe

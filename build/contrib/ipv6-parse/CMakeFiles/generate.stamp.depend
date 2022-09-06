@@ -1,0 +1,5 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.18/Modules/CheckIncludeFiles.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/CheckSymbolExists.cmake
+D:/bch_sc2_cpp/main/contrib/ipv6-parse/CMakeLists.txt
+D:/bch_sc2_cpp/main/contrib/ipv6-parse/ipv6_config.h.in

@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{43CA0E2E-1604-3B57-8514-8ABFD8A9F989}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\bch_sc2_cpp\main\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/bch_sc2_cpp/main/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/bch_sc2_cpp/main -BD:/bch_sc2_cpp/main/build --check-stamp-file D:/bch_sc2_cpp/main/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\WindowsPaths.cmake;D:\bch_sc2_cpp\main\build\CMakeFiles\3.18.2\CMakeCCompiler.cmake;D:\bch_sc2_cpp\main\build\CMakeFiles\3.18.2\CMakeCXXCompiler.cmake;D:\bch_sc2_cpp\main\build\CMakeFiles\3.18.2\CMakeRCCompiler.cmake;D:\bch_sc2_cpp\main\build\CMakeFiles\3.18.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\bch_sc2_cpp\main\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/bch_sc2_cpp/main/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/bch_sc2_cpp/main -BD:/bch_sc2_cpp/main/build --check-stamp-file D:/bch_sc2_cpp/main/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\WindowsPaths.cmake;D:\bch_sc2_cpp\main\build\CMakeFiles\3.18.2\CMakeCCompiler.cmake;D:\bch_sc2_cpp\main\build\CMakeFiles\3.18.2\CMakeCXXCompiler.cmake;D:\bch_sc2_cpp\main\build\CMakeFiles\3.18.2\CMakeRCCompiler.cmake;D:\bch_sc2_cpp\main\build\CMakeFiles\3.18.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\bch_sc2_cpp\main\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/bch_sc2_cpp/main/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/bch_sc2_cpp/main -BD:/bch_sc2_cpp/main/build --check-stamp-file D:/bch_sc2_cpp/main/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\WindowsPaths.cmake;D:\bch_sc2_cpp\main\build\CMakeFiles\3.18.2\CMakeCCompiler.cmake;D:\bch_sc2_cpp\main\build\CMakeFiles\3.18.2\CMakeCXXCompiler.cmake;D:\bch_sc2_cpp\main\build\CMakeFiles\3.18.2\CMakeRCCompiler.cmake;D:\bch_sc2_cpp\main\build\CMakeFiles\3.18.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\bch_sc2_cpp\main\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/bch_sc2_cpp/main/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/bch_sc2_cpp/main -BD:/bch_sc2_cpp/main/build --check-stamp-file D:/bch_sc2_cpp/main/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\Platform\WindowsPaths.cmake;D:\bch_sc2_cpp\main\build\CMakeFiles\3.18.2\CMakeCCompiler.cmake;D:\bch_sc2_cpp\main\build\CMakeFiles\3.18.2\CMakeCXXCompiler.cmake;D:\bch_sc2_cpp\main\build\CMakeFiles\3.18.2\CMakeRCCompiler.cmake;D:\bch_sc2_cpp\main\build\CMakeFiles\3.18.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\bch_sc2_cpp\main\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\ZERO_CHECK.vcxproj">
+      <Project>{81352832-3294-3AE3-82BD-FF59D646A3FF}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\project\IM\IM.vcxproj">
+      <Project>{DAEA1D33-B57E-3BF9-BA84-2B3F8DB71B08}</Project>
+      <Name>IM</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\contrib\SDL-mirror\SDL2-static.vcxproj">
+      <Project>{DE7177C3-AD35-3B45-BF2A-BD1781E90F45}</Project>
+      <Name>SDL2-static</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\contrib\SDL-mirror\SDL2main.vcxproj">
+      <Project>{848C07BA-0002-3966-B84D-E84EEBEEE16B}</Project>
+      <Name>SDL2main</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\tests\all_tests.vcxproj">
+      <Project>{5639D53B-5F06-37BA-B6B7-9FC73B6F407A}</Project>
+      <Name>all_tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\examples\annoying_helper.vcxproj">
+      <Project>{A1A834B2-DEFD-34D2-9232-5A54EF526B80}</Project>
+      <Name>annoying_helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\examples\bot_micro.vcxproj">
+      <Project>{D2AD3130-842D-3B45-A87A-14C6C965720D}</Project>
+      <Name>bot_micro</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\examples\bot_mp.vcxproj">
+      <Project>{6C3A9283-6F67-3FA8-93D7-D11AB451081E}</Project>
+      <Name>bot_mp</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\examples\bot_simple.vcxproj">
+      <Project>{85DFD826-4439-3B63-B985-FB1DD2E76B80}</Project>
+      <Name>bot_simple</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\contrib\civetweb\src\civetweb-c-library.vcxproj">
+      <Project>{AAEF08B2-CE81-3EB0-BF32-2CAF59232B6B}</Project>
+      <Name>civetweb-c-library</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\examples\echo_actions.vcxproj">
+      <Project>{15068247-683E-3A89-958E-8DE85A9703D3}</Project>
+      <Name>echo_actions</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\examples\feature_layers.vcxproj">
+      <Project>{8F035BA3-A478-3B8E-8A09-38D84D25AFD7}</Project>
+      <Name>feature_layers</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\project\game_connect\game_connect.vcxproj">
+      <Project>{03D24BF2-5992-36E9-80A4-2EDAAC99A7BA}</Project>
+      <Name>game_connect</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\examples\intermediate_bot.vcxproj">
+      <Project>{18CBAEA2-AF01-3C4C-835D-0CCDC6B99033}</Project>
+      <Name>intermediate_bot</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\contrib\ipv6-parse\ipv6-parse.vcxproj">
+      <Project>{BAB2B8AD-0C27-311B-B626-B233B1A40474}</Project>
+      <Name>ipv6-parse</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\contrib\protobuf\cmake\libprotobuf.vcxproj">
+      <Project>{EFB10E67-384F-3E48-965D-0559C33F7D33}</Project>
+      <Name>libprotobuf</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\contrib\protobuf\cmake\libprotobuf-lite.vcxproj">
+      <Project>{E134994A-4248-33C3-AA9B-6A8DFFFEB1FB}</Project>
+      <Name>libprotobuf-lite</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\contrib\protobuf\cmake\libprotoc.vcxproj">
+      <Project>{023A569A-05C6-398F-A515-606DF413487C}</Project>
+      <Name>libprotoc</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\project\micro_kiting\micro_kiting.vcxproj">
+      <Project>{A9177C18-910F-337A-8E6D-F9C4C63389CF}</Project>
+      <Name>micro_kiting</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\project\pathing\pathing.vcxproj">
+      <Project>{14E02492-A15A-3241-8DCB-BF3CB8E18852}</Project>
+      <Name>pathing</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\project\pathing_2agent\pathing_2agent.vcxproj">
+      <Project>{1A8EAC05-27D9-3975-8954-741030D50598}</Project>
+      <Name>pathing_2agent</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\contrib\protobuf\cmake\protoc.vcxproj">
+      <Project>{1B1CE892-91B0-371A-B2DF-3CBE5D7EB47D}</Project>
+      <Name>protoc</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\examples\proxy.vcxproj">
+      <Project>{D4E65CBC-40B3-3331-9228-AE3CACF59B5A}</Project>
+      <Name>proxy</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\examples\rendered.vcxproj">
+      <Project>{51D1FA05-B2F2-3334-921F-5FF198D392B3}</Project>
+      <Name>rendered</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\examples\replay.vcxproj">
+      <Project>{EA4188B1-6853-3139-9F40-868497BB045C}</Project>
+      <Name>replay</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\examples\save_load.vcxproj">
+      <Project>{014C22C7-C61F-3A03-A748-EAF01A5F0781}</Project>
+      <Name>save_load</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\src\sc2api\sc2api.vcxproj">
+      <Project>{573CAAC7-D087-3F75-9122-78890FCC2F1A}</Project>
+      <Name>sc2api</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\src\sc2lib\sc2lib.vcxproj">
+      <Project>{14B391A1-239C-3768-9BE0-B595B3FE9FA9}</Project>
+      <Name>sc2lib</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\src\sc2protocol\sc2protocol.vcxproj">
+      <Project>{F01A1238-BFFD-33A3-9302-373755F02155}</Project>
+      <Name>sc2protocol</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\src\sc2renderer\sc2renderer.vcxproj">
+      <Project>{16D34BDC-6467-338A-B8CB-837BDD1C9357}</Project>
+      <Name>sc2renderer</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\src\sc2utils\sc2utils.vcxproj">
+      <Project>{6533332D-8423-3902-AA7C-F5A1035360E7}</Project>
+      <Name>sc2utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\project\test\test.vcxproj">
+      <Project>{74D087DB-215C-3E30-B521-BDB2EB3A1A9A}</Project>
+      <Name>test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\bch_sc2_cpp\main\build\examples\tutorial.vcxproj">
+      <Project>{70EFF2C1-57A0-3A06-8C9C-0A135D3C902B}</Project>
+      <Name>tutorial</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

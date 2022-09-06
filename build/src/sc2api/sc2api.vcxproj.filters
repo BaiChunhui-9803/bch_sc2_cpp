@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_action.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_agent.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_args.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_client.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_common.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_connection.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_coordinator.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_data.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_game_settings.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_map_info.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_proto_interface.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_proto_to_pods.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_replay_observer.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_score.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_server.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_unit.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\sc2_unit_filters.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\src\sc2api\typeids\sc2_5.0.5_typeenums.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\bch_sc2_cpp\main\include\sc2api\sc2_typeenums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\bch_sc2_cpp\main\include\sc2api\typeids\sc2_5.0.5_typeenums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\bch_sc2_cpp\main\src\sc2api\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{E11A838F-1EEA-3329-98EF-D6774B0605CC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{8D28A0FE-1F2F-37D2-9328-C49563AAAC82}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

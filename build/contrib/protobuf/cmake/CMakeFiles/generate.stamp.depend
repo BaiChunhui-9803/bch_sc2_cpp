@@ -1,0 +1,25 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.18/Modules/CMakeDependentOption.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/CheckCSourceCompiles.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/CheckIncludeFile.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/CheckLibraryExists.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/FindPackageMessage.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/FindThreads.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/FindZLIB.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/GNUInstallDirs.cmake
+C:/Program Files/CMake/share/cmake-3.18/Modules/SelectLibraryConfigurations.cmake
+D:/bch_sc2_cpp/main/contrib/protobuf/cmake/CMakeLists.txt
+D:/bch_sc2_cpp/main/contrib/protobuf/cmake/extract_includes.bat.in
+D:/bch_sc2_cpp/main/contrib/protobuf/cmake/install.cmake
+D:/bch_sc2_cpp/main/contrib/protobuf/cmake/libprotobuf-lite.cmake
+D:/bch_sc2_cpp/main/contrib/protobuf/cmake/libprotobuf.cmake
+D:/bch_sc2_cpp/main/contrib/protobuf/cmake/libprotoc.cmake
+D:/bch_sc2_cpp/main/contrib/protobuf/cmake/protobuf-config-version.cmake.in
+D:/bch_sc2_cpp/main/contrib/protobuf/cmake/protobuf-config.cmake.in
+D:/bch_sc2_cpp/main/contrib/protobuf/cmake/protobuf-lite.pc.cmake
+D:/bch_sc2_cpp/main/contrib/protobuf/cmake/protobuf-module.cmake.in
+D:/bch_sc2_cpp/main/contrib/protobuf/cmake/protobuf-options.cmake
+D:/bch_sc2_cpp/main/contrib/protobuf/cmake/protobuf.pc.cmake
+D:/bch_sc2_cpp/main/contrib/protobuf/cmake/protoc.cmake
+D:/bch_sc2_cpp/main/contrib/protobuf/cmake/version.rc.in

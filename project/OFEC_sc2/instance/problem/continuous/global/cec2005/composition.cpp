@@ -1,0 +1,225 @@
+/*************************************************************************
+* Project:Open Frameworks for Evolutionary Computation (OFEC)
+*************************************************************************
+* Author: Changhe Li
+* Email: changhe.lw@gmail.com 
+* Language: C++
+*************************************************************************
+*  This file is part of OFEC. This library is free software;
+*  you can redistribute it and/or modify it under the terms of the
+*  GNU General Public License as published by the Free Software
+*  Foundation; either version 2, or (at your option) any later version.
+*************************************************************************/
+
+#include <algorithm>
+#include "composition.h"
+#include "../../../../../core/problem/solution.h"
+#include "../../../../../core/global.h"
+#include "../../../../../core/instance_manager.h"
+
+namespace ofec {
+	namespace cec2005 {
+		Composition::~Composition() {
+			for (auto &i : m_function)
+				if (i) delete i;
+			for (auto id : m_param_ids)
+				DEL_PARAM(id);
+		}
+
+		size_t Composition::numFunctions() {
+			return m_num_function;
+		}
+
+		void Composition::computeFmax() {  // calculate the estimate max value of funciton i
+            Solution<> s(m_num_objs, numConstraints(), m_num_vars);
+			for (size_t i = 0; i < m_num_function; ++i) {
+				for (size_t j = 0; j < m_num_vars; ++j) {
+					s.variable()[j] = m_domain[j].limit.second;
+				}
+				m_function[i]->evaluate(s, false);
+				m_fmax[i] = s.objective()[0];
+			}
+		}
+
+		void Composition::setWeight(std::vector<Real>& weight, const std::vector<Real>&x) { //default CEC05
+			for (size_t i = 0; i < m_num_function; ++i) { // calculate weight for each function
+				weight[i] = 0;
+				for (size_t j = 0; j < m_num_vars; ++j) {
+					weight[i] += (x[j] - m_function[i]->translation()[j])*(x[j] - m_function[i]->translation()[j]);
+				}
+				weight[i] = exp(-weight[i] / (2 * m_num_vars*m_converge_severity[i] * m_converge_severity[i]));
+
+			}
+		}
+
+		void Composition::initialize_() {
+			Continuous::initialize_();
+			resizeObjective(1);
+			m_opt_mode[0] = OptMode::kMinimize;
+
+			auto &v = GET_PARAM(m_id_param);
+			resizeVariable(std::get<int>(v.at("number of variables")));
+			setDomain(-5., 5.);
+
+			for (auto &i : m_function)
+				if (i) delete i;
+			for (auto id : m_param_ids)
+				DEL_PARAM(id);
+			m_height_normalize_severity = 2000;
+			setFunction();
+			loadRotation("/instance/problem/continuous/global/cec2005/data/");
+			computeFmax();
+			loadTranslation("/instance/problem/continuous/global/cec2005/data/");  //data path
+			
+			m_optima.clear();
+			std::vector<Real> objs(1);
+			evaluateObjective(m_function[0]->translation().data(), objs);
+			m_optima.appendVar(VarVec<Real>(m_function[0]->translation()));
+			m_optima.appendObj(objs);
+			m_optima.setVariableGiven(true);
+			m_optima.setObjectiveGiven(true);
+			m_objective_accuracy = 1.0e-2;
+			m_variable_niche_radius = 1e-4 * 5 * m_num_vars;	
+		}
+
+		void Composition::evaluateObjective(Real *x, std::vector<Real> &obj) {
+			std::vector<Real> x_(m_num_vars);
+			std::copy(x, x + m_num_vars, x_.begin());
+			
+			std::vector<Real> weight(m_num_function, 0);
+			setWeight(weight, x_);
+
+			std::vector<Real> fit(m_num_function);
+			Solution<> s(m_num_objs, m_num_cons, m_num_vars);
+			s.variable().vect() = x_;
+
+			for (size_t i = 0; i < m_num_function; ++i) { // calculate objective value for each function
+				m_function[i]->evaluate(s, -1, false);
+				fit[i] = s.objective()[0];
+				if (fabs(m_fmax[i]) > 1e-6)
+					fit[i] = m_height_normalize_severity*fit[i] / fabs(m_fmax[i]);
+			}
+
+			Real sumw = 0, wmax;
+			wmax = *std::max_element(weight.begin(), weight.end());
+			for (size_t i = 0; i < m_num_function; ++i) {
+				if (weight[i] != wmax) {
+					weight[i] = weight[i] * (1 - pow(wmax, 10));
+				}
+			}
+			size_t same_wmax_num = 0;
+			for (size_t i = 0; i < m_num_function; ++i) {
+				if (weight[i] == wmax) ++same_wmax_num;
+			}
+			size_t i = m_num_function - 1;
+			while (same_wmax_num > 1 && i >= 0) {
+				if (wmax == weight[i]) {
+					weight[i] = 0;
+					--same_wmax_num;
+				}
+				--i;
+			}
+
+			for (size_t i = 0; i < m_num_function; ++i)
+				sumw += weight[i];
+			for (size_t i = 0; i < m_num_function; ++i)
+				weight[i] /= sumw;
+
+			Real temp = 0;
+			for (size_t i = 0; i < m_num_function; ++i) {
+				temp += weight[i] * (fit[i] + m_height[i]);
+			}
+
+			obj[0] = temp;
+		}
+
+		bool Composition::loadTranslation(const std::string &path) {
+			std::string s;
+			std::stringstream ss;
+			ss << m_num_vars << "Dim.txt";
+			s = ss.str();
+			s.insert(0, m_name + "_Shift_");
+			s.insert(0, path);    // data path
+			s.insert(0, g_working_dir);
+			for (auto &i : m_function)
+				i->translation().resize(m_num_vars);
+			std::ifstream in(s);
+			if (in.fail()) {
+				setTranslation();
+				std::ofstream out(s);
+				out << "# The data is generated by OFEC randomly." << std::endl;
+				for (size_t i = 0; i < m_num_function; ++i) {
+                    for (size_t j = 0; j < m_num_vars; ++j)
+                        out << m_function[i]->translation()[j] << " ";
+                    out << std::endl;
+                }
+				
+				out.close();
+			}
+			else {
+				std::string row;
+				std::getline(in, row); // Skip the first line of commments
+				for (size_t i = 0; i < m_num_function; ++i) {
+					std::getline(in, row);
+					std::stringstream sstr_row(row);
+					for (size_t j = 0; j < m_num_vars; ++j)
+						sstr_row >> m_function[i]->translation()[j];
+				}
+			}
+			in.close();
+			for(auto &i: m_function)
+				i->setTranlated(true);
+			return true;
+		}
+
+		bool Composition::loadRotation(const std::string &path) {
+			std::string s;
+			std::stringstream ss;
+			ss << m_num_vars << "Dim.txt";
+			s = ss.str();
+			s.insert(0, m_name + "_RotM_");
+
+			s.insert(0, path);// data path
+			s.insert(0, g_working_dir);
+
+			for (auto &i : m_function)
+				i->rotation().resize(m_num_vars, m_num_vars);
+			std::ifstream in(s);
+			if (in.fail()) {
+				setRotation();
+				std::ofstream out(s);
+				out << "# The data is generated by OFEC randomly." << std::endl;
+				for (size_t i = 0; i < m_num_function; ++i)
+					m_function[i]->rotation().print(out);
+				out.close();
+			}
+			else {
+				std::string first_line;
+				getline(in, first_line);
+				for (size_t i = 0; i < m_num_function; ++i) 
+					m_function[i]->rotation().load(in);	
+			}
+			in.close();
+			for (auto &i : m_function)
+				i->setRotated(true);
+			return true;
+		}
+
+		void Composition::setTranslation() {
+			for (int i = 0; i < m_num_function; i++) 
+				for (int j = 0; j < m_num_vars; j++) 
+					m_function[i]->translation()[j] = m_domain[j].limit.first + (m_domain[j].limit.second - m_domain[j].limit.first)*(1 - GET_RND(m_id_rnd).uniform.next());
+		}
+
+		void Composition::setRotation() {
+			for (auto i : m_function) 
+				i->rotation().generateRotationClassical(&GET_RND(m_id_rnd).normal, i->conditionNumber());	
+		}
+
+		Function* Composition::getFunction(size_t num) {
+			return m_function[num];
+		}
+		
+	}
+}
+
