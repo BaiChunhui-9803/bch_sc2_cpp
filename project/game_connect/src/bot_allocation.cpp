@@ -1,6 +1,6 @@
 #include "bot_allocation.h"
 
-bool sc2::BotAllocation::LaunchMultiGame(int argc, char* argv[], size_t pop_size, size_t step_size) {
+bool sc2::BotAllocation::LaunchMultiGame(int argc, char* argv[], size_t pop_size, size_t step_size, State load_state) {
 
 	// 打印命令行信息
 	for (int i = 0; i < argc; i++) {
@@ -23,7 +23,7 @@ bool sc2::BotAllocation::LaunchMultiGame(int argc, char* argv[], size_t pop_size
 		m_simulators[i].LoadSettings(argc, argv);
 
 		// SetRealtime(false)情况下允许支持暂停
-		m_simulators[i].SetRealtime(true);
+		m_simulators[i].SetRealtime(false);
 		m_simulators[i].SetMultithreaded(true);
 		// simulators[i].SetFeatureLayers(sc2::FeatureLayerSettings(24.0f, 64, 64, 64, 64));
 		m_simulators[i].SetPortStart(port_start + port_step * i);
@@ -54,7 +54,6 @@ bool sc2::BotAllocation::LaunchMultiGame(int argc, char* argv[], size_t pop_size
 			while (m_simulators[i].Update()) {
 				if (m_bots[i].game_load_flag_) {
 					m_bots[i].save_state.LoadState(m_bots[i].save_state, m_bots[i], m_simulators[i]);
-					m_bots[i].game_load_flag_ = false;
 				}
 
 				//std::cout << m_bots[i].Observation()->GetGameLoop() << std::endl;
@@ -62,8 +61,10 @@ bool sc2::BotAllocation::LaunchMultiGame(int argc, char* argv[], size_t pop_size
 				//	++step;
 				//}
 				++step;
-				//bots[i].Observation();
-				std::cout << step << std::endl;
+				//std::cout << step << std::endl;
+				if (step >= 40) {
+					m_bots[i].game_stop_observe_flag_ = true;
+				}
 				if (step >= step_size) {
 					m_bots[i].game_pause_flag_ = true;
 					m_bots[i].game_save_flag_ = true;

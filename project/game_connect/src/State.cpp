@@ -49,6 +49,7 @@ void sc2::State::LoadState(State saved_state, Client& current_client, Coordinato
 		copy_unit = select_nearest_unit_from_point(u.pos, copy_units);
 		current_client.Debug()->DebugSetShields(u.shields + 0.1f, copy_unit);
 		current_client.Debug()->DebugSetLife(u.life, copy_unit);
+		//std::cout << "current_client life:" << u.life << std::endl;
 		current_client.Debug()->DebugSetEnergy(u.energy, copy_unit);
 	}
 	current_client.Debug()->SendDebug();

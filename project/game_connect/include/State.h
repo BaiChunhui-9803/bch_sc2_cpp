@@ -39,7 +39,7 @@ namespace sc2 {
 
         void LoadState(State saved_state, Client& current_client, Coordinator& current_coordinator);
 
-        bool isBlank() { return m_units_state.size() == 0; }
+		bool isBlank() { return (m_units_state.size() == 0); }
 	};
 
     struct GameInfCallFor {
