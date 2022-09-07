@@ -33,6 +33,7 @@ private:
 
 public:
     bool LaunchMultiGame(int argc, char* argv[], size_t pop_size = 1, size_t step_size = 100, State load_state = State());
+
 };
 
 }

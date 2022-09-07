@@ -17,7 +17,7 @@ using namespace std;
 
 	// 设置客户端数量、游戏步长
 	int POPSIZE = 1;
-	int STEPSIZE = 50;
+	int STEPSIZE = 100;
 
 	sc2::BotAllocation bot_manager;
 	//bot_manager.LaunchMultiGame(argc, argv, POPSIZE, STEPSIZE);

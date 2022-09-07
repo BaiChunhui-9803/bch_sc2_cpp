@@ -26,12 +26,12 @@ public:
 
     std::map<sc2::Tag, sc2::Unit> observed_units;
 private:
-
     size_t begin_selfN = 0;
     size_t begin_enemyN = 0;
     double begin_selfHP = 0.0;
     double begin_enemyHP = 0.0;
 public:
+
     void pushObservedUnits(const ObservationInterface*& ob);
 
     void setGameInf(const std::map<sc2::Tag, sc2::Unit>& observed);
@@ -46,6 +46,8 @@ public:
     void getGameInf();
 
     double getScore();
+
+    Point2D getCenterPos(const Units& units);
 };
 
 

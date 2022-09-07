@@ -19,12 +19,15 @@ bool sc2::BotAllocation::LaunchMultiGame(int argc, char* argv[], size_t pop_size
 	for (int i = 0; i < pop_size; ++i) {
 		m_simulators[i].SetParticipants({
 			CreateParticipant(sc2::Race::Terran, &(m_bots[i])),
-			CreateComputer(sc2::Race::Zerg),
+			CreateComputer(sc2::Race::Zerg,
+			sc2::Difficulty::VeryEasy,
+			sc2::AIBuild::Macro,
+			"VeryEasy"),
 			});
 		m_simulators[i].LoadSettings(argc, argv);
 
 		// SetRealtime(false)情况下允许支持暂停
-		m_simulators[i].SetRealtime(false);
+		m_simulators[i].SetRealtime(true);
 		m_simulators[i].SetMultithreaded(true);
 		// simulators[i].SetFeatureLayers(sc2::FeatureLayerSettings(24.0f, 64, 64, 64, 64));
 		m_simulators[i].SetPortStart(port_start + port_step * i);

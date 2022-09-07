@@ -57,10 +57,26 @@ namespace sc2 {
 
         if (!game_stop_observe_flag_) {
             pushObservedUnits(observation);
-        }
-        else if (save_state.isBlank()) {
             setGameInf(observed_units);
         }
+
+        if (game_load_finish_flag_) {
+            Units units_self = observation->GetUnits(Unit::Alliance::Self);
+            for (auto& u : units_self) {
+                switch (static_cast<UNIT_TYPEID>(u->unit_type)) {
+                case UNIT_TYPEID::TERRAN_MARINE: {
+                    action->UnitCommand(u, ABILITY_ID::SMART, Point2D(50, 50));
+                    break;
+                }
+                default: {
+                    break;
+                }
+                }
+            }
+        }
+
+        debug->DebugMoveCamera(getCenterPos(units_self));
+        debug->SendDebug();
 
         if (game_save_flag_) {
             save_state = save_state.SaveState(observation);
@@ -73,7 +89,7 @@ namespace sc2 {
         //    game_load_flag_ = false;
         //}
 
-        //showGameInf();
+        showGameInf();
 
         if (game_pause_flag_) {
 
@@ -184,6 +200,15 @@ namespace sc2 {
         double fitness = (begin_enemyHP - current_enemyHP) - (begin_selfHP - current_selfHP);
         return fitness;
     }
+
+    Point2D sc2::MyConnectBot::getCenterPos(const Units& units) {
+        Point2D center_pos;
+        for (auto& u : units) {
+            center_pos += Point2D(u->pos);
+        }
+        return center_pos / units.size();
+    }
+
 
 }
 
