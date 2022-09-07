@@ -22,6 +22,7 @@ public:
     bool game_pause_flag_ = false;
     bool game_save_flag_ = false;
     bool game_load_flag_ = false;
+    bool game_load_finish_flag_ = false;
 
     std::map<sc2::Tag, sc2::Unit> observed_units;
 private:

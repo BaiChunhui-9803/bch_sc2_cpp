@@ -10,6 +10,7 @@ bool sc2::BotAllocation::LaunchMultiGame(int argc, char* argv[], size_t pop_size
 
 	// 游戏必要信息设置
 	std::string map = "Example/MarineMicro.SC2Map";
+	std::string blank_map = "Example/BlankMap.SC2Map";
 	// bots对应Client，simulators对应coordinator
 	m_bots.resize(pop_size);
 	m_simulators.resize(pop_size);
@@ -36,7 +37,12 @@ bool sc2::BotAllocation::LaunchMultiGame(int argc, char* argv[], size_t pop_size
 	std::vector<std::thread> start_game_threads(pop_size);
 	for (size_t i = 0; i < start_game_threads.size(); ++i) {
 		start_game_threads[i] = std::thread([&, i]()->void {
-			m_simulators[i].StartGame(map);
+			if (load_state.isBlank()) {
+				m_simulators[i].StartGame(map);
+			}
+			else {
+				m_simulators[i].StartGame(blank_map);
+			}
 		});
 	}
 	for (auto& t : start_game_threads) {
@@ -52,8 +58,15 @@ bool sc2::BotAllocation::LaunchMultiGame(int argc, char* argv[], size_t pop_size
 			// 对每一个线程执行step_size步游戏循环，但不能使其退出
 			// 执行step_size步之后，应当触发暂停（可通过进入循环实现），并返回想要的数据
 			while (m_simulators[i].Update()) {
+				if (!m_bots[i].game_load_finish_flag_ && !m_bots[i].game_load_flag_ && !load_state.isBlank()) {
+					m_bots[i].game_load_flag_ = true;
+				}
+
 				if (m_bots[i].game_load_flag_) {
-					m_bots[i].save_state.LoadState(m_bots[i].save_state, m_bots[i], m_simulators[i]);
+					m_bots[i].save_state.LoadState(load_state, m_bots[i], m_simulators[i]);
+					m_bots[i].observed_units.clear();
+					m_bots[i].game_load_flag_ = false;
+					m_bots[i].game_load_finish_flag_ = true;
 				}
 
 				//std::cout << m_bots[i].Observation()->GetGameLoop() << std::endl;
@@ -62,7 +75,7 @@ bool sc2::BotAllocation::LaunchMultiGame(int argc, char* argv[], size_t pop_size
 				//}
 				++step;
 				//std::cout << step << std::endl;
-				if (step >= 40) {
+				if (step >= step_size - 10) {
 					m_bots[i].game_stop_observe_flag_ = true;
 				}
 				if (step >= step_size) {
@@ -70,10 +83,10 @@ bool sc2::BotAllocation::LaunchMultiGame(int argc, char* argv[], size_t pop_size
 					m_bots[i].game_save_flag_ = true;
 					m_gameinfs[i].g_inf_score = 0;
 				}
-				if (step >= 2 * step_size) {
-					m_bots[i].game_load_flag_ = true;
-					step = 1;
-				}
+				//if (step >= 2 * step_size) {
+				//	m_bots[i].game_load_flag_ = true;
+				//	step = 1;
+				//}
 			}
 		});
 	}

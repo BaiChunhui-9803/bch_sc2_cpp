@@ -64,14 +64,14 @@ namespace sc2 {
 
         if (game_save_flag_) {
             save_state = save_state.SaveState(observation);
-            //std::cout << save_state;
+            std::cout << save_state;
             game_save_flag_ = false;
         }
 
-        if (game_load_flag_) {
-            setGameInf(save_state);
-            game_load_flag_ = false;
-        }
+        //if (game_load_flag_) {
+        //    setGameInf(save_state);
+        //    game_load_flag_ = false;
+        //}
 
         //showGameInf();
 
@@ -116,12 +116,12 @@ namespace sc2 {
         begin_selfN = 0;
         begin_enemyN = 0;
         for (int i = 0; i < state.m_units_state.size(); ++i) {
-            if (state.m_units_state.at(i).player_id == 1) {
-                begin_selfHP += state.m_units_state.at(i).life;
+            if (state.m_units_state.at(i).m_player_id == 1) {
+                begin_selfHP += state.m_units_state.at(i).m_life;
                 ++begin_selfN;
             }
-            else if (state.m_units_state.at(i).player_id == 2) {
-                begin_enemyHP += state.m_units_state.at(i).life;
+            else if (state.m_units_state.at(i).m_player_id == 2) {
+                begin_enemyHP += state.m_units_state.at(i).m_life;
                 ++begin_enemyN;
             }
         }

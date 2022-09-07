@@ -24,6 +24,7 @@ State sc2::State::SaveState(const ObservationInterface* observation) {
 }
 
 void sc2::State::LoadState(State saved_state, Client& current_client, Coordinator& current_coordinator) {
+	*this = saved_state;
 	// 杀死所有现有单位
 	for (const Unit* u : current_client.Observation()->GetUnits()) {
 		current_client.Debug()->DebugKillUnit(u);
@@ -35,7 +36,7 @@ void sc2::State::LoadState(State saved_state, Client& current_client, Coordinato
 	}
 	// 从saved_state中创建Units
 	for (UnitState u : saved_state.m_units_state) {
-		current_client.Debug()->DebugCreateUnit(u.unit_type, u.pos, u.player_id);
+		current_client.Debug()->DebugCreateUnit(u.m_unit_type, u.m_pos, u.m_player_id);
 	}
 	current_client.Debug()->SendDebug();
 	// DebugCreateUnit()至少需要2个Loop
@@ -46,11 +47,11 @@ void sc2::State::LoadState(State saved_state, Client& current_client, Coordinato
 	const Unit* copy_unit;
 	Units copy_units = current_client.Observation()->GetUnits();
 	for (UnitState u : saved_state.m_units_state) {
-		copy_unit = select_nearest_unit_from_point(u.pos, copy_units);
-		current_client.Debug()->DebugSetShields(u.shields + 0.1f, copy_unit);
-		current_client.Debug()->DebugSetLife(u.life, copy_unit);
+		copy_unit = select_nearest_unit_from_point(u.m_pos, copy_units);
+		current_client.Debug()->DebugSetShields(u.m_shields + 0.1f, copy_unit);
+		current_client.Debug()->DebugSetLife(u.m_life, copy_unit);
 		//std::cout << "current_client life:" << u.life << std::endl;
-		current_client.Debug()->DebugSetEnergy(u.energy, copy_unit);
+		current_client.Debug()->DebugSetEnergy(u.m_energy, copy_unit);
 	}
 	current_client.Debug()->SendDebug();
 	// DebugCreateUnit()至少需要2个Loop
@@ -64,13 +65,13 @@ std::ostream& sc2::operator<<(std::ostream& os, const State& s) {
 	os << "id\ttag\t\ttype\tplayer\tlife\tenergy\tpos.x\tpos.y" << std::endl;
 	for (size_t i = 0; i < s.m_units_state.size(); ++i) {
 		os << i << "\t"
-			<< s.m_units_state.at(i).unit_tag << "\t"
-			<< s.m_units_state.at(i).unit_type << "\t"
-			<< s.m_units_state.at(i).player_id << "\t"
-			<< s.m_units_state.at(i).life << "\t"
-			<< s.m_units_state.at(i).energy << "\t"
-			<< s.m_units_state.at(i).pos.x << "\t"
-			<< s.m_units_state.at(i).pos.y << std::endl;
+			<< s.m_units_state.at(i).m_unit_tag << "\t"
+			<< s.m_units_state.at(i).m_unit_type << "\t"
+			<< s.m_units_state.at(i).m_player_id << "\t"
+			<< s.m_units_state.at(i).m_life << "\t"
+			<< s.m_units_state.at(i).m_energy << "\t"
+			<< s.m_units_state.at(i).m_pos.x << "\t"
+			<< s.m_units_state.at(i).m_pos.y << std::endl;
 	}
 	return os;
 }

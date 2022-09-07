@@ -21,24 +21,28 @@ namespace sc2 {
 	////////////////////////////////
 
 	struct UnitState {
-		UnitTypeID unit_type;
-		Point2D pos;
-		uint32_t player_id = 0;
-		Tag unit_tag = 0;
-		float energy = 0;
-		float life = 0;
-		float shields = 0;
+		UnitTypeID m_unit_type;
+		Point2D m_pos;
+		uint32_t m_player_id = 0;
+		Tag m_unit_tag = 0;
+		float m_energy = 0;
+		float m_life = 0;
+		float m_shields = 0;
+
+		UnitState() = default;
+		UnitState(UnitTypeID unit_type, Point2D pos, uint32_t player_id = 0, Tag unit_tag = 0, float energy = 0, float life = 0, float shields = 0) :
+			m_unit_type(unit_type), m_pos(pos), m_player_id(player_id), m_unit_tag(unit_tag), m_energy(energy), m_life(life), m_shields(shields) {}
 	};
 
 	struct State {
 		std::vector<UnitState> m_units_state;
 
+		State() = default;
+		State(std::vector<UnitState> unit_state_vec) :m_units_state(unit_state_vec) {}
+		State SaveState(const ObservationInterface* observation);
+
         friend std::ostream& operator<<(std::ostream& os, const State& s);
-
-        State SaveState(const ObservationInterface* observation);
-
         void LoadState(State saved_state, Client& current_client, Coordinator& current_coordinator);
-
 		bool isBlank() { return (m_units_state.size() == 0); }
 	};
 
