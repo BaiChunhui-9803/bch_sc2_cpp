@@ -1,12 +1,6 @@
 #include "bot_allocation.h"
 
-bool sc2::BotAllocation::LaunchMultiGame(int argc, char* argv[], size_t pop_size, size_t step_size, State load_state) {
-
-	// 打印命令行信息
-	for (int i = 0; i < argc; i++) {
-		std::cout << "command para_" << "i:" << std::endl;
-		std::cout << argv[i] << std::endl;
-	}
+bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, State load_state) {
 
 	// 游戏必要信息设置
 	std::string map = "Example/MarineMicro.SC2Map";
@@ -24,7 +18,8 @@ bool sc2::BotAllocation::LaunchMultiGame(int argc, char* argv[], size_t pop_size
 			sc2::AIBuild::Macro,
 			"VeryEasy"),
 			});
-		m_simulators[i].LoadSettings(argc, argv);
+		//m_simulators[i].LoadSettings(argc, argv);
+		m_simulators[i].SetProcessPath("C:\\Program Files (x86)\\StarCraft II\\Versions\\Base87702\\SC2.exe");
 
 		// SetRealtime(false)情况下允许支持暂停
 		m_simulators[i].SetRealtime(true);

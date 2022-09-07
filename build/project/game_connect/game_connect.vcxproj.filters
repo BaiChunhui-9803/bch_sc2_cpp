@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\State.cpp">
+    <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\Point2DPolar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\action_order.cpp">
+    <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\State.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\bot_allocation.cpp">
@@ -16,18 +16,33 @@
     <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\mybot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\sc2utility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\State.h">
+    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\Command.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\action_order.h">
+    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\GA.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\Point2DPolar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\Solution.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\State.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\bot_allocation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\mybot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\sc2utility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

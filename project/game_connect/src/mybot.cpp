@@ -65,7 +65,7 @@ namespace sc2 {
             for (auto& u : units_self) {
                 switch (static_cast<UNIT_TYPEID>(u->unit_type)) {
                 case UNIT_TYPEID::TERRAN_MARINE: {
-                    action->UnitCommand(u, ABILITY_ID::SMART, Point2D(50, 50));
+                    action->UnitCommand(u, ABILITY_ID::SMART, Point2D(60, 60));
                     break;
                 }
                 default: {

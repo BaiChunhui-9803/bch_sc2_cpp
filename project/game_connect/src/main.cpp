@@ -20,16 +20,16 @@ using namespace std;
 	int STEPSIZE = 100;
 
 	sc2::BotAllocation bot_manager;
-	//bot_manager.LaunchMultiGame(argc, argv, POPSIZE, STEPSIZE);
+	bot_manager.LaunchMultiGame(POPSIZE, STEPSIZE);
 
 	// Load的测试部分
-	std::vector<sc2::UnitState> unit_state_vec;
-	unit_state_vec.push_back(sc2::UnitState(48, sc2::Point2D(55, 60), 1, 4300472321, 0, 45, 0));
-	unit_state_vec.push_back(sc2::UnitState(48, sc2::Point2D(50, 55), 1, 4255555555, 0, 45, 0));
-	unit_state_vec.push_back(sc2::UnitState(105, sc2::Point2D(60, 65), 2, 4851255555, 0, 35, 0));
-	sc2::State load_state(unit_state_vec);
+	//std::vector<sc2::UnitState> unit_state_vec;
+	//unit_state_vec.push_back(sc2::UnitState(48, sc2::Point2D(55, 60), 1, 4300472321, 0, 45, 0));
+	//unit_state_vec.push_back(sc2::UnitState(48, sc2::Point2D(50, 55), 1, 4255555555, 0, 45, 0));
+	//unit_state_vec.push_back(sc2::UnitState(105, sc2::Point2D(60, 65), 2, 4851255555, 0, 35, 0));
+	//sc2::State load_state(unit_state_vec);
 
-	bot_manager.LaunchMultiGame(argc, argv, POPSIZE, STEPSIZE, load_state);
+	//bot_manager.LaunchMultiGame(POPSIZE, STEPSIZE, load_state);
 
 
 

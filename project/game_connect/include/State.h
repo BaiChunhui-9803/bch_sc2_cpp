@@ -1,6 +1,6 @@
 #pragma once
 #include<sc2api/sc2_api.h>
-#include "action_order.h"
+//#include "action_order.h"
 
 namespace sc2 {
 
@@ -48,7 +48,7 @@ namespace sc2 {
 
     struct GameInfCallFor {
         double g_inf_score = 0;
-        ActionOrder g_inf_action_order;
+        //ActionOrder g_inf_action_order;
     };
 
 

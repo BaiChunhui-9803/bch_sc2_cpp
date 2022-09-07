@@ -315,15 +315,20 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\Point2DPolar.cpp" />
     <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\State.cpp" />
-    <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\action_order.cpp" />
     <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\bot_allocation.cpp" />
     <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\main.cpp" />
     <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\mybot.cpp" />
+    <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\sc2utility.cpp" />
+    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\Command.h" />
+    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\GA.h" />
+    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\Point2DPolar.h" />
+    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\Solution.h" />
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\State.h" />
-    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\action_order.h" />
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\bot_allocation.h" />
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\mybot.h" />
+    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\sc2utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:\bch_sc2_cpp\main\build\ZERO_CHECK.vcxproj">
