@@ -26,6 +26,8 @@ using namespace std;
 	sc2::RunBot bot;
 	bot.run();
 
+	while(1){}
+
 	// Load的测试部分
 	//std::vector<sc2::UnitState> unit_state_vec;
 	//unit_state_vec.push_back(sc2::UnitState(48, sc2::Point2D(55, 60), 1, 4300472321, 0, 45, 0));

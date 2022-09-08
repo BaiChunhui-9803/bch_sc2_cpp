@@ -56,8 +56,9 @@ bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, Stat
 			// 对每一个线程执行step_size步游戏循环，但不能使其退出
 			// 执行step_size步之后，应当触发暂停（可通过进入循环实现），并返回想要的数据
 			while (m_simulators[i].Update()) {
-				if (m_bots[0].game_leave_flag) {
+				if (isAllSimulatorEnd()) {
 					//m_simulators[0].LeaveGame();
+					break;
 				}
 				if (m_bots[i].game_idle_flag) {
 					m_bots[i].game_leave_flag = true;
@@ -129,4 +130,13 @@ bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, Stat
 void sc2::BotAllocation::pushSingleScore(size_t id, MyScore single_score) {
 	std::cout << "id:" << id << "\tm_total_score:" << single_score.m_total_score << std::endl;
 	m_scorer.push_back(std::pair<size_t, MyScore>(id, single_score));
+}
+
+bool sc2::BotAllocation::isAllSimulatorEnd() {
+	for (size_t i = 0; i < m_bots.size(); ++i) {
+		if (!m_bots[i].game_leave_flag) {
+			return false;
+		}
+	}
+	return true;
 }

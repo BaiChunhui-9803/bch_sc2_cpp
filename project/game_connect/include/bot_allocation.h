@@ -42,6 +42,8 @@ public:
 
     void pushSingleScore(size_t id, MyScore single_score);
 
+    bool isAllSimulatorEnd();
+
 };
 
 }
