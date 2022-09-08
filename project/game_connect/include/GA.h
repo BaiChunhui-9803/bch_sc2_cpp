@@ -5,14 +5,16 @@
 #include <numeric>
 #include "Solution.h"
 
+using namespace sc2;
+
 template<class T>
 class GA {
 	// 种群 由多个Solution构成
-	using Population = std::vector<Solution<T>>;
+	using Population = std::vector<Solution>;
 	// 算子
 	using Evaluator = std::function<float(const std::vector<T>&)>;
 	// 比较
-	using Compare = std::function<bool(const Solution<T>&, const Solution<T>&)>;
+	using Compare = std::function<bool(const Solution&, const Solution&)>;
 protected:
     //! Settings
     // 最大代数
@@ -32,7 +34,7 @@ protected:
     // 繁殖比例
     float m_reproduce_rate = 1.f;
 
-    Compare m_compare = Solution<T>::sum_greater;
+    Compare m_compare = Solution::sum_greater;
     Evaluator default_evaluator = [](const std::vector<T> variables)->float { return 0; };
     std::vector<Evaluator*> eva_v = { &default_evaluator };
     std::vector<Evaluator*> m_evaluators = eva_v; // for easy to use
@@ -75,10 +77,10 @@ protected:
     virtual void GenerateSolutions(Population& pop, int size);
     //! two parents generate a unmutated soluton
     // 交叉过程
-    virtual std::vector<Solution<T>> CrossOver(const Solution<T>& a, const Solution<T>& b);
+    virtual std::vector<Solution> CrossOver(const Solution& a, const Solution& b);
     //virtual Solution<T> Mutate(const Solution<T>& s); //? mutate must be implemented by users
     //? pure virtual
-    virtual void Mutate(Solution<T>& s) = 0;
+    virtual void Mutate(Solution& s) = 0;
     //! a population generate another population
     // The spring_size need to be smaller than the size of parents
     // 繁殖过程
@@ -91,17 +93,17 @@ protected:
     virtual void SortSolutions(Population& p, const Compare& compare);
 
     //! two parents generate two children by crossover and mutation
-    virtual std::vector<Solution<T>> Produce(const Solution<T>& a, const Solution<T>& b);
+    virtual std::vector<Solution> Produce(const Solution& a, const Solution& b);
     //! Calls those evaluators to evaluate one solution
     // 调用这些算子来求一个解
-    virtual void EvaluateSingleSolution(Solution<T>& solution);
+    virtual void EvaluateSingleSolution(Solution& solution);
     //! Generate one solution
     //? pure virtual
-    virtual Solution<T> GenerateSolution() = 0;
+    virtual Solution GenerateSolution() = 0;
 };
 
 template<class T>
-inline std::vector<Solution<T>> GA<T>::Run() {
+inline std::vector<Solution> GA<T>::Run() {
     m_population.resize(m_population_size);
     GenerateSolutions(m_population, m_population_size);
     Evaluate(m_population);
@@ -126,32 +128,32 @@ inline void GA<T>::GenerateSolutions(Population& pop, int size) {
 }
 
 template<class T>
-inline std::vector<Solution<T>> GA<T>::CrossOver(const Solution<T>& a, const Solution<T>& b) {
+inline std::vector<Solution> GA<T>::CrossOver(const Solution& a, const Solution& b) {
     //! you can use #define NDBUG to disabled assert()
-    assert(a.s_variable.size() > 0 && a.s_variable.size() == b.s_variable.size());
-    std::vector<Solution<T>> offspring = { a,b };
-    size_t start = sc2::GetRandomInteger(0, a.s_variable.size() - 1);
-    size_t end = sc2::GetRandomInteger(0, a.s_variable.size() - 1);
+    assert(a.s_commands.size() > 0 && a.s_commands.size() == b.s_commands.size());
+    std::vector<Solution> offspring = { a,b };
+    size_t start = sc2::GetRandomInteger(0, a.s_commands.size() - 1);
+    size_t end = sc2::GetRandomInteger(0, a.s_commands.size() - 1);
     if (start > end) {
         std::swap(start, end);
     }
     for (size_t i = start; i < end; i++)
     {
-        std::swap(offspring[0].s_variable[i], offspring[1].variable[i]);
+        std::swap(offspring[0].s_commands[i], offspring[1].variable[i]);
     }
     return offspring;
 }
 
 template<class T>
-inline std::vector<Solution<T>> GA<T>::Produce(const Solution<T>& a, const Solution<T>& b) {
-    std::vector<Solution<T>> children;
+inline std::vector<Solution> GA<T>::Produce(const Solution& a, const Solution& b) {
+    std::vector<Solution> children;
     if (sc2::GetRandomFraction() < m_cross_over_rate) { //? it should't be here, instead, it should be outside
         children = CrossOver(a, b);
     }
     else {
         children = { a,b };
     }
-    for (Solution<T>& c : children)
+    for (Solution& c : children)
     {
         if (sc2::GetRandomFraction() < m_mutate_rate) {
             Mutate(c);
@@ -166,7 +168,7 @@ inline void GA<T>::Reproduce(const Population& parents, Population& offspring, i
     offspring.resize(spring_size);
     for (size_t i = 0; i < spring_size; i += 2)
     {
-        std::vector<Solution<T>> instant_children = Produce(parents[i], parents[i + 1]);
+        std::vector<Solution> instant_children = Produce(parents[i], parents[i + 1]);
         offspring[i] = instant_children[0];
         if (i + 1 < spring_size) {
             offspring[i + 1] = instant_children[1];
@@ -176,7 +178,7 @@ inline void GA<T>::Reproduce(const Population& parents, Population& offspring, i
 
 template<class T>
 inline void GA<T>::Evaluate(Population& p) {
-    for (Solution<T>& s : p) {
+    for (Solution& s : p) {
         EvaluateSingleSolution(s);
     }
 }
@@ -188,11 +190,11 @@ inline void GA<T>::SortSolutions(Population& p, const Compare& compare) {
 
 
 template<class T>
-inline void GA<T>::EvaluateSingleSolution(Solution<T>& solution)
+inline void GA<T>::EvaluateSingleSolution(Solution& solution)
 {
     assert(solution.s_objectives.size() == m_evaluators.size()); //? or I can add, but this will effect the performance, so you'd better set the settings properly before the run
     for (size_t i = 0; i < m_evaluators.size(); i++)
     {
-        solution.s_objectives[i] = m_evaluators[i](solution.s_variable);
+        solution.s_objectives[i] = m_evaluators[i](solution.s_commands);
     }
 }

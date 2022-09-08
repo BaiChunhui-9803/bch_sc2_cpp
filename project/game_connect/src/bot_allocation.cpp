@@ -79,7 +79,16 @@ bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, Stat
 				if (step >= step_size) {
 					m_bots[i].game_pause_flag_ = true;
 					m_bots[i].game_save_flag_ = true;
-					m_gameinfs[i].g_inf_score = 0;
+					//m_gameinfs[i].g_inf_score = 0;
+					pushSingleScore(i, m_bots[i].getScore());
+					//std::vector<std::pair<size_t, MyScore>> scorer = getScorer();
+					//for()
+					std::cout << m_scorer.size() << std::endl;
+						std::cout << "scorer[" << m_scorer.at(i).first << "]\t"
+							<< "damage_to_enemy:" << m_scorer.at(i).second.m_damage_to_enemy << "\t"
+							<< "damage_to_self:" << m_scorer.at(i).second.m_damage_to_self << "\t"
+							<< "total_score:" << m_scorer.at(i).second.m_total_score << std::endl;
+					//std::cout << m_bots[i].getScore();
 				}
 				//if (step >= 2 * step_size) {
 				//	m_bots[i].game_load_flag_ = true;
@@ -104,4 +113,8 @@ bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, Stat
 #endif
 
 	return true;
+}
+
+void sc2::BotAllocation::pushSingleScore(size_t id, MyScore single_score) {
+	m_scorer.push_back(std::pair<size_t, MyScore>(id, single_score));
 }

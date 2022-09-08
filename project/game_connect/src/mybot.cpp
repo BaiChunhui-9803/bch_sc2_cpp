@@ -80,7 +80,7 @@ namespace sc2 {
 
         if (game_save_flag_) {
             save_state = save_state.SaveState(observation);
-            std::cout << save_state;
+            //std::cout << save_state;
             game_save_flag_ = false;
         }
 
@@ -89,13 +89,13 @@ namespace sc2 {
         //    game_load_flag_ = false;
         //}
 
-        showGameInf();
+        //showGameInf();
 
         if (game_pause_flag_) {
 
-            std::cout << getScore();
-            while (1) {
-            }
+            //std::cout << getScore();
+            /*while (1) {
+            }*/
         }
 	}
 
@@ -181,7 +181,7 @@ namespace sc2 {
         std::cout << "begin_enemyHP:" << begin_enemyHP << std::endl;
     }
 
-    double sc2::MyConnectBot::getScore() {
+    MyScore sc2::MyConnectBot::getScore() {
         size_t current_selfN= 0;
         size_t current_enemyN = 0;
         double current_selfHP = 0.0;
@@ -197,8 +197,10 @@ namespace sc2 {
                 current_enemyHP += u->health;
             }
         }
-        double fitness = (begin_enemyHP - current_enemyHP) - (begin_selfHP - current_selfHP);
-        return fitness;
+        return MyScore((begin_enemyHP - current_enemyHP),
+            (begin_selfHP - current_selfHP),
+            (begin_enemyHP - current_enemyHP) - (begin_selfHP - current_selfHP)
+        );
     }
 
     Point2D sc2::MyConnectBot::getCenterPos(const Units& units) {

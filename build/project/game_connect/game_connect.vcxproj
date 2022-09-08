@@ -316,6 +316,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\Point2DPolar.cpp" />
+    <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\RunBot.cpp" />
     <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\State.cpp" />
     <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\bot_allocation.cpp" />
     <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\main.cpp" />
@@ -324,6 +325,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\Command.h" />
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\GA.h" />
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\Point2DPolar.h" />
+    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\RunBot.h" />
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\Solution.h" />
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\State.h" />
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\bot_allocation.h" />

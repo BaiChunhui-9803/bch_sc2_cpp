@@ -4,6 +4,9 @@
     <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\Point2DPolar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\RunBot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\State.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -28,6 +31,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\Point2DPolar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\RunBot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\Solution.h">

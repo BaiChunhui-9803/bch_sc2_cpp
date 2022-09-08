@@ -10,6 +10,14 @@
 
 namespace sc2 {
 
+struct MyScore {
+    float m_damage_to_enemy = 0.0;
+    float m_damage_to_self = 0.0;
+    float m_total_score = 0.0;
+
+    MyScore(float d2e, float d2s, float ts) :m_damage_to_enemy(d2e), m_damage_to_self(d2s), m_total_score(ts) {}
+};
+
 struct MyConnectBot : public sc2::Agent {
 public:
     // 游戏启动执行
@@ -45,7 +53,7 @@ public:
     // not used now
     void getGameInf();
 
-    double getScore();
+    MyScore getScore();
 
     Point2D getCenterPos(const Units& units);
 };

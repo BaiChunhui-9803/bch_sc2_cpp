@@ -1,13 +1,14 @@
 #include "sc2api/sc2_api.h"
-#include "bot_allocation.h"
-#include "mybot.h"
-#include "State.h"
-
 #include "sc2utils/sc2_arg_parser.h"
 #include "sc2api/sc2_coordinator.h"
 #include "sc2utils/sc2_manage_process.h"
 
 #include <thread>
+
+#include "bot_allocation.h"
+#include "mybot.h"
+#include "State.h"
+#include "RunBot.h"
 
 #define BUILD_FOR_MULTI_THREADS
 #ifdef BUILD_FOR_MULTI_THREADS
@@ -16,11 +17,14 @@ int main(int argc, char* argv[]) {
 using namespace std;
 
 	// 设置客户端数量、游戏步长
-	int POPSIZE = 1;
-	int STEPSIZE = 100;
+	//int POPSIZE = 10;
+	//int STEPSIZE = 100;
 
-	sc2::BotAllocation bot_manager;
-	bot_manager.LaunchMultiGame(POPSIZE, STEPSIZE);
+	//sc2::BotAllocation bot_manager;
+	//bot_manager.LaunchMultiGame(POPSIZE, STEPSIZE);
+
+	sc2::RunBot bot;
+	bot.run();
 
 	// Load的测试部分
 	//std::vector<sc2::UnitState> unit_state_vec;
