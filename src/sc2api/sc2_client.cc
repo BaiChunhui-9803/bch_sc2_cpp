@@ -578,7 +578,7 @@ bool ObservationImp::UpdateObservation() {
     if (observation_raw.HasErrors()) {
         return false;
     }
-    
+
     unit_pool_.ClearExisting();
     Convert(observation_raw, unit_pool_, current_game_loop_, previous_game_loop);
 

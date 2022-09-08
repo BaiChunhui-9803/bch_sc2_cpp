@@ -15,6 +15,7 @@ struct MyScore {
     float m_damage_to_self = 0.0;
     float m_total_score = 0.0;
 
+    MyScore() = default;
     MyScore(float d2e, float d2s, float ts) :m_damage_to_enemy(d2e), m_damage_to_self(d2s), m_total_score(ts) {}
 };
 
@@ -31,13 +32,18 @@ public:
     bool game_save_flag_ = false;
     bool game_load_flag_ = false;
     bool game_load_finish_flag_ = false;
+    bool game_pause_finish_flag_ = false;
+    bool game_idle_flag = false;
+    bool game_leave_flag = false;
 
     std::map<sc2::Tag, sc2::Unit> observed_units;
+    MyScore m_scorer;
 private:
     size_t begin_selfN = 0;
     size_t begin_enemyN = 0;
     double begin_selfHP = 0.0;
     double begin_enemyHP = 0.0;
+
 public:
 
     void pushObservedUnits(const ObservationInterface*& ob);

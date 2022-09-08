@@ -22,7 +22,7 @@ bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, Stat
 		m_simulators[i].SetProcessPath("C:\\Program Files (x86)\\StarCraft II\\Versions\\Base87702\\SC2.exe");
 
 		// SetRealtime(false)情况下允许支持暂停
-		m_simulators[i].SetRealtime(true);
+		m_simulators[i].SetRealtime(false);
 		m_simulators[i].SetMultithreaded(true);
 		// simulators[i].SetFeatureLayers(sc2::FeatureLayerSettings(24.0f, 64, 64, 64, 64));
 		m_simulators[i].SetPortStart(port_start + port_step * i);
@@ -56,44 +56,55 @@ bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, Stat
 			// 对每一个线程执行step_size步游戏循环，但不能使其退出
 			// 执行step_size步之后，应当触发暂停（可通过进入循环实现），并返回想要的数据
 			while (m_simulators[i].Update()) {
-				if (!m_bots[i].game_load_finish_flag_ && !m_bots[i].game_load_flag_ && !load_state.isBlank()) {
-					m_bots[i].game_load_flag_ = true;
+				if (m_bots[0].game_leave_flag) {
+					//m_simulators[0].LeaveGame();
 				}
+				if (m_bots[i].game_idle_flag) {
+					m_bots[i].game_leave_flag = true;
+				}
+				else {
+					if (!m_bots[i].game_load_finish_flag_ && !m_bots[i].game_load_flag_ && !load_state.isBlank()) {
+						m_bots[i].game_load_flag_ = true;
+					}
 
-				if (m_bots[i].game_load_flag_) {
-					m_bots[i].save_state.LoadState(load_state, m_bots[i], m_simulators[i]);
-					m_bots[i].observed_units.clear();
-					m_bots[i].game_load_flag_ = false;
-					m_bots[i].game_load_finish_flag_ = true;
-				}
+					if (m_bots[i].game_load_flag_) {
+						m_bots[i].save_state.LoadState(load_state, m_bots[i], m_simulators[i]);
+						m_bots[i].observed_units.clear();
+						m_bots[i].game_load_flag_ = false;
+						m_bots[i].game_load_finish_flag_ = true;
+					}
 
-				//std::cout << m_bots[i].Observation()->GetGameLoop() << std::endl;
-				//if (bots[i].Observation()->GetGameLoop() != 0) {
-				//	++step;
-				//}
-				++step;
-				//std::cout << step << std::endl;
-				if (step >= step_size - 10) {
-					m_bots[i].game_stop_observe_flag_ = true;
+					//std::cout << m_bots[i].Observation()->GetGameLoop() << std::endl;
+					//if (bots[i].Observation()->GetGameLoop() != 0) {
+					//	++step;
+					//}
+					++step;
+					//std::cout << step << std::endl;
+					if (step >= step_size - 10) {
+						m_bots[i].game_stop_observe_flag_ = true;
+					}
+					if (step >= step_size) {
+						m_bots[i].game_pause_flag_ = true;
+						m_bots[i].game_save_flag_ = true;
+						//m_gameinfs[i].g_inf_score = 0;
+						//pushSingleScore(i, m_bots[i].getScore());
+						//std::vector<std::pair<size_t, MyScore>> scorer = getScorer();
+						//for()
+						//	std::cout << "scorer[" << m_scorer.at(i).first << "]\t"
+						//		<< "damage_to_enemy:" << m_scorer.at(i).second.m_damage_to_enemy << "\t"
+						//		<< "damage_to_self:" << m_scorer.at(i).second.m_damage_to_self << "\t"
+						//		<< "total_score:" << m_scorer.at(i).second.m_total_score << std::endl;
+						//std::cout << m_bots[i].getScore();
+					}
+					if (m_bots[i].game_pause_finish_flag_) {
+						std::cout << "分数:" << m_bots[i].m_scorer.m_total_score << std::endl;
+						m_bots[i].game_idle_flag = true;
+					}
+					//if (step >= 2 * step_size) {
+					//	m_bots[i].game_load_flag_ = true;
+					//	step = 1;
+					//}
 				}
-				if (step >= step_size) {
-					m_bots[i].game_pause_flag_ = true;
-					m_bots[i].game_save_flag_ = true;
-					//m_gameinfs[i].g_inf_score = 0;
-					pushSingleScore(i, m_bots[i].getScore());
-					//std::vector<std::pair<size_t, MyScore>> scorer = getScorer();
-					//for()
-					std::cout << m_scorer.size() << std::endl;
-						std::cout << "scorer[" << m_scorer.at(i).first << "]\t"
-							<< "damage_to_enemy:" << m_scorer.at(i).second.m_damage_to_enemy << "\t"
-							<< "damage_to_self:" << m_scorer.at(i).second.m_damage_to_self << "\t"
-							<< "total_score:" << m_scorer.at(i).second.m_total_score << std::endl;
-					//std::cout << m_bots[i].getScore();
-				}
-				//if (step >= 2 * step_size) {
-				//	m_bots[i].game_load_flag_ = true;
-				//	step = 1;
-				//}
 			}
 		});
 	}
@@ -116,5 +127,6 @@ bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, Stat
 }
 
 void sc2::BotAllocation::pushSingleScore(size_t id, MyScore single_score) {
+	std::cout << "id:" << id << "\tm_total_score:" << single_score.m_total_score << std::endl;
 	m_scorer.push_back(std::pair<size_t, MyScore>(id, single_score));
 }

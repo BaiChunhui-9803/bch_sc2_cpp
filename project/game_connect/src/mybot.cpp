@@ -92,10 +92,8 @@ namespace sc2 {
         //showGameInf();
 
         if (game_pause_flag_) {
-
-            //std::cout << getScore();
-            /*while (1) {
-            }*/
+            m_scorer = getScore();
+            game_pause_finish_flag_ = true;
         }
 	}
 
