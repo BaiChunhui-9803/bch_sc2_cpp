@@ -23,40 +23,44 @@ State sc2::State::SaveState(const ObservationInterface* observation) {
 	return save_state;
 }
 
-void sc2::State::LoadState(State saved_state, Client& current_client, Coordinator& current_coordinator) {
+void sc2::State::LoadState(State saved_state, Client& current_client, Coordinator& current_coordinator, std::vector<Command> load_commands) {
+
 	*this = saved_state;
-	// 杀死所有现有单位
-	for (const Unit* u : current_client.Observation()->GetUnits()) {
-		current_client.Debug()->DebugKillUnit(u);
-	}
-	current_client.Debug()->SendDebug();
-	// 残骸清除大约需要20个Loop
-	for (size_t i = 0; i < 20; ++i) {
-		current_coordinator.Update();
-	}
-	// 从saved_state中创建Units
-	for (UnitState u : saved_state.m_units_state) {
-		current_client.Debug()->DebugCreateUnit(u.m_unit_type, u.m_pos, u.m_player_id);
-	}
-	current_client.Debug()->SendDebug();
-	// DebugCreateUnit()至少需要2个Loop
-	for (size_t i = 0; i < 2; ++i) {
-		current_coordinator.Update();
-	}
-	// 复制saved_state中的属性
-	const Unit* copy_unit;
-	Units copy_units = current_client.Observation()->GetUnits();
-	for (UnitState u : saved_state.m_units_state) {
-		copy_unit = select_nearest_unit_from_point(u.m_pos, copy_units);
-		current_client.Debug()->DebugSetShields(u.m_shields + 0.1f, copy_unit);
-		current_client.Debug()->DebugSetLife(u.m_life, copy_unit);
-		//std::cout << "current_client life:" << u.life << std::endl;
-		current_client.Debug()->DebugSetEnergy(u.m_energy, copy_unit);
-	}
-	current_client.Debug()->SendDebug();
-	// DebugCreateUnit()至少需要2个Loop
-	for (size_t i = 0; i < 2; ++i) {
-		current_coordinator.Update();
+	this->m_commands = load_commands;
+	if (!saved_state.isBlank()) {
+		// 杀死所有现有单位
+		for (const Unit* u : current_client.Observation()->GetUnits()) {
+			current_client.Debug()->DebugKillUnit(u);
+		}
+		current_client.Debug()->SendDebug();
+		// 残骸清除大约需要20个Loop
+		for (size_t i = 0; i < 20; ++i) {
+			current_coordinator.Update();
+		}
+		// 从saved_state中创建Units
+		for (UnitState u : saved_state.m_units_state) {
+			current_client.Debug()->DebugCreateUnit(u.m_unit_type, u.m_pos, u.m_player_id);
+		}
+		current_client.Debug()->SendDebug();
+		// DebugCreateUnit()至少需要2个Loop
+		for (size_t i = 0; i < 2; ++i) {
+			current_coordinator.Update();
+		}
+		// 复制saved_state中的属性
+		const Unit* copy_unit;
+		Units copy_units = current_client.Observation()->GetUnits();
+		for (UnitState u : saved_state.m_units_state) {
+			copy_unit = select_nearest_unit_from_point(u.m_pos, copy_units);
+			current_client.Debug()->DebugSetShields(u.m_shields + 0.1f, copy_unit);
+			current_client.Debug()->DebugSetLife(u.m_life, copy_unit);
+			//std::cout << "current_client life:" << u.life << std::endl;
+			current_client.Debug()->DebugSetEnergy(u.m_energy, copy_unit);
+		}
+		current_client.Debug()->SendDebug();
+		// DebugCreateUnit()至少需要2个Loop
+		for (size_t i = 0; i < 2; ++i) {
+			current_coordinator.Update();
+		}
 	}
 }
 

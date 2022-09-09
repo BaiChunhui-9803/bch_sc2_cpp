@@ -1,9 +1,9 @@
 #include "RunBot.h"
 
-Solution sc2::RunBot::run() {
-	int POPSIZE = 2;
+Solution sc2::RunBot::run(std::vector<Command> load_commands, State load_state) {
+	int POPSIZE = 1;
 	int STEPSIZE = 100;
-	m_bot_allocation.LaunchMultiGame(POPSIZE, STEPSIZE);
+	m_bot_allocation.LaunchMultiGame(POPSIZE, STEPSIZE, load_commands);
 	std::vector<std::pair<size_t, MyScore>> scorer = m_bot_allocation.getScorer();
 	for (int i = 0; i < scorer.size(); ++i) {
 		std::cout << "scorer[" << scorer.at(i).first << "]\t"

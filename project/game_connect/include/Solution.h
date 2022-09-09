@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SOLUTION_H
+#define SOLUTION_H
 #include <sc2api/sc2_api.h>
 #include <vector>
 #include <functional>
@@ -60,3 +61,5 @@ namespace sc2 {
 		}
 	};
 }
+
+#endif

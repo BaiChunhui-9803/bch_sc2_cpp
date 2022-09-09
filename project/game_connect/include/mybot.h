@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MYBOT_H
+#define MYBOT_H
 
 #include "sc2api/sc2_api.h"
 #include "sc2utils/sc2_manage_process.h"
@@ -26,7 +27,7 @@ public:
     // 游戏走帧执行 Your bots OnStep function will be called each time the coordinator steps the simulation forward.
     virtual void OnStep() final;
 
-    State save_state;
+    State save_state = State();
     bool game_stop_observe_flag_ = false;
     bool game_pause_flag_ = false;
     bool game_save_flag_ = false;
@@ -35,8 +36,12 @@ public:
     bool game_pause_finish_flag_ = false;
     bool game_idle_flag = false;
     bool game_leave_flag = false;
+    bool game_set_commands_finish_flag = false;
+    bool flag_test = false;
 
     std::map<sc2::Tag, sc2::Unit> observed_units;
+    Units observed_self_units;
+    Units observed_enemy_units;
     MyScore m_scorer;
 private:
     size_t begin_selfN = 0;
@@ -62,9 +67,16 @@ public:
     MyScore getScore();
 
     Point2D getCenterPos(const Units& units);
+
+    void setOrders(std::vector<Command> commands);
+
+    sc2::Unit* findUnit(Tag tag);
+
+    //sc2::Unit
 };
 
 
 }
 
 
+#endif

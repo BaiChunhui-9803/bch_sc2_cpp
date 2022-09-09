@@ -60,19 +60,9 @@ namespace sc2 {
             setGameInf(observed_units);
         }
 
-        if (game_load_finish_flag_) {
-            Units units_self = observation->GetUnits(Unit::Alliance::Self);
-            for (auto& u : units_self) {
-                switch (static_cast<UNIT_TYPEID>(u->unit_type)) {
-                case UNIT_TYPEID::TERRAN_MARINE: {
-                    action->UnitCommand(u, ABILITY_ID::SMART, Point2D(60, 60));
-                    break;
-                }
-                default: {
-                    break;
-                }
-                }
-            }
+        if (game_load_finish_flag_ && !game_set_commands_finish_flag) {
+            setOrders(save_state.m_commands);
+            game_set_commands_finish_flag = true;
         }
 
         debug->DebugMoveCamera(getCenterPos(units_self));
@@ -91,7 +81,7 @@ namespace sc2 {
 
         //showGameInf();
 
-        if (game_pause_flag_) {
+        if (game_pause_flag_ && !game_pause_finish_flag_) {
             m_scorer = getScore();
             game_pause_finish_flag_ = true;
         }
@@ -102,6 +92,12 @@ namespace sc2 {
         for (auto& u : units) {
             if (observed_units.find(u->tag) == observed_units.end()) {
                 observed_units.insert(std::pair<sc2::Tag, sc2::Unit>(u->tag, *u));
+                if (u->alliance == sc2::Unit::Alliance::Self) {
+                    observed_self_units.push_back(u);
+                }
+                else if (u->alliance == sc2::Unit::Alliance::Enemy) {
+                    observed_enemy_units.push_back(u);
+                }
                 //std::cout << u->tag << std::endl;
             }
         }
@@ -209,6 +205,32 @@ namespace sc2 {
         return center_pos / units.size();
     }
 
+    void sc2::MyConnectBot::setOrders(std::vector<Command> commands) {
+        for (const Command& cmd : commands) {
+            for (const ActionRaw& act : cmd.c_actions) {
+                switch (act.target_type) {
+                case ActionRaw::TargetType::TargetNone:
+                    Actions()->UnitCommand(observed_self_units, act.ability_id, true);
+                    break;
+                case ActionRaw::TargetType::TargetPosition:
+                    Actions()->UnitCommand(observed_self_units, act.ability_id, act.target_point, true);
+                    break;
+                case ActionRaw::TargetType::TargetUnitTag:
+                    Actions()->UnitCommand(observed_self_units, act.ability_id, findUnit(act.target_tag), true);
+                    break;
+                }
+            }
+        }
+    }
 
 }
 
+sc2::Unit* sc2::MyConnectBot::findUnit(Tag tag) {
+    std::map<sc2::Tag, sc2::Unit>::iterator l_it = observed_units.find(tag);
+    if (l_it == observed_units.end()) {
+        return &Unit();
+    }
+    else {
+        return &(l_it->second);
+    }
+}

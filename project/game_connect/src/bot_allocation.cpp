@@ -1,6 +1,6 @@
 #include "bot_allocation.h"
 
-bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, State load_state) {
+bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, std::vector<Command> load_commands, State load_state) {
 
 	// 游戏必要信息设置
 	std::string map = "Example/MarineMicro.SC2Map";
@@ -57,6 +57,7 @@ bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, Stat
 			// 执行step_size步之后，应当触发暂停（可通过进入循环实现），并返回想要的数据
 			while (m_simulators[i].Update()) {
 				if (isAllSimulatorEnd()) {
+					m_scorer.push_back(std::pair<size_t, MyScore>(i, m_bots[i].m_scorer));
 					//m_simulators[0].LeaveGame();
 					break;
 				}
@@ -68,11 +69,14 @@ bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, Stat
 						m_bots[i].game_load_flag_ = true;
 					}
 
-					if (m_bots[i].game_load_flag_) {
-						m_bots[i].save_state.LoadState(load_state, m_bots[i], m_simulators[i]);
+					// 暂时注释
+					//if (m_bots[i].game_load_flag_) {
+					if (!m_bots[i].flag_test) {
+						m_bots[i].save_state.LoadState(load_state, m_bots[i], m_simulators[i], load_commands);
 						m_bots[i].observed_units.clear();
 						m_bots[i].game_load_flag_ = false;
 						m_bots[i].game_load_finish_flag_ = true;
+						m_bots[i].flag_test = true;
 					}
 
 					//std::cout << m_bots[i].Observation()->GetGameLoop() << std::endl;
@@ -140,3 +144,4 @@ bool sc2::BotAllocation::isAllSimulatorEnd() {
 	}
 	return true;
 }
+

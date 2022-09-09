@@ -24,7 +24,21 @@ using namespace std;
 	//bot_manager.LaunchMultiGame(POPSIZE, STEPSIZE);
 
 	sc2::RunBot bot;
-	bot.run();
+	std::vector<Command> command_vec;
+	command_vec.resize(1);
+	command_vec[0].c_actions.resize(3);
+	command_vec[0].c_actions[0].ability_id = ABILITY_ID::SMART;
+	command_vec[0].c_actions[0].target_type = ActionRaw::TargetType::TargetPosition;
+	command_vec[0].c_actions[0].target_point = Point2D(60, 60);
+	command_vec[0].c_actions[1].ability_id = ABILITY_ID::SMART;
+	command_vec[0].c_actions[1].target_type = ActionRaw::TargetType::TargetPosition;
+	command_vec[0].c_actions[1].target_point = Point2D(60, 50);
+	command_vec[0].c_actions[2].ability_id = ABILITY_ID::SMART;
+	command_vec[0].c_actions[2].target_type = ActionRaw::TargetType::TargetPosition;
+	command_vec[0].c_actions[2].target_point = Point2D(50, 60);
+	//cmd.c_actions.push_back();
+	//command_vec.push_back()
+	bot.run(command_vec);
 
 	while(1){}
 

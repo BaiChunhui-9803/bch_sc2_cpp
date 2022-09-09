@@ -1,6 +1,8 @@
-#pragma once
+#ifndef STATE_H
+#define STATE_H
 #include<sc2api/sc2_api.h>
 //#include "action_order.h"
+#include "Command.h"
 
 namespace sc2 {
 
@@ -36,13 +38,17 @@ namespace sc2 {
 
 	struct State {
 		std::vector<UnitState> m_units_state;
+		std::vector<Command> m_commands;
 
-		State() = default;
+		State() {
+			m_units_state = std::vector<UnitState>();
+			m_commands = std::vector<Command>();
+		}
 		State(std::vector<UnitState> unit_state_vec) :m_units_state(unit_state_vec) {}
 		State SaveState(const ObservationInterface* observation);
 
         friend std::ostream& operator<<(std::ostream& os, const State& s);
-        void LoadState(State saved_state, Client& current_client, Coordinator& current_coordinator);
+        void LoadState(State saved_state, Client& current_client, Coordinator& current_coordinator, std::vector<Command> load_commands);
 		bool isBlank() { return (m_units_state.size() == 0); }
 	};
 
@@ -53,3 +59,5 @@ namespace sc2 {
 
 
 }
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RUNBOT_H
+#define RUNBOT_H
 
 #include <iostream>
 #include <sc2api/sc2_api.h>
@@ -73,7 +74,7 @@ namespace sc2 {
 			m_evaluators[0] = std::bind(&RunBot::simulate_single_solution_back_score, this, _1);
 		}
 
-		Solution run();
+		Solution run(std::vector<Command> load_commands = std::vector<Command>(), State load_state = State());
 
 	private:
 
@@ -89,3 +90,5 @@ namespace sc2 {
 	};
 
 }
+
+#endif
