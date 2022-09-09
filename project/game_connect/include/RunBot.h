@@ -4,8 +4,8 @@
 #include <sc2api/sc2_api.h>
 #include <map>
 #include <functional>
-#include "solution.h"
 #include "bot_allocation.h"
+#include "Solution.h"
 
 using namespace std::placeholders;
 
