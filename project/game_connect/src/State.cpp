@@ -23,7 +23,7 @@ State sc2::State::SaveState(const ObservationInterface* observation) {
 	return save_state;
 }
 
-void sc2::State::LoadState(State saved_state, Client& current_client, Coordinator& current_coordinator, std::vector<Command> load_commands) {
+void sc2::State::LoadState(State saved_state, Client& current_client, Coordinator& current_coordinator, Command load_commands) {
 
 	*this = saved_state;
 	this->m_commands = load_commands;

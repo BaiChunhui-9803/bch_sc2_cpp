@@ -76,6 +76,8 @@ namespace sc2 {
 
 		Solution run(std::vector<Command> load_commands = std::vector<Command>(), State load_state = State());
 
+		std::vector<std::pair<size_t, MyScore>> runSingleSolution(std::vector<Command> load_commands = std::vector<Command>(), State load_state = State());
+
 	private:
 
 		// generate a random solution

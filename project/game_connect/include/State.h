@@ -38,17 +38,17 @@ namespace sc2 {
 
 	struct State {
 		std::vector<UnitState> m_units_state;
-		std::vector<Command> m_commands;
+		Command m_commands;
 
 		State() {
 			m_units_state = std::vector<UnitState>();
-			m_commands = std::vector<Command>();
+			m_commands = Command();
 		}
 		State(std::vector<UnitState> unit_state_vec) :m_units_state(unit_state_vec) {}
 		State SaveState(const ObservationInterface* observation);
 
         friend std::ostream& operator<<(std::ostream& os, const State& s);
-        void LoadState(State saved_state, Client& current_client, Coordinator& current_coordinator, std::vector<Command> load_commands);
+        void LoadState(State saved_state, Client& current_client, Coordinator& current_coordinator, Command load_commands);
 		bool isBlank() { return (m_units_state.size() == 0); }
 	};
 

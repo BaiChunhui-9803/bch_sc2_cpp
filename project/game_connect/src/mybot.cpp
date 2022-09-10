@@ -49,7 +49,7 @@ namespace sc2 {
 	void MyConnectBot::OnStep() {
 
 		const ObservationInterface* observation = Observation();
-		ActionInterface* action = Actions();
+
 		sc2::DebugInterface* debug = Debug();
 		const SC2APIProtocol::Observation* observation_layer = Observation()->GetRawObservation();
         Units units_self = observation->GetUnits(Unit::Alliance::Self);
@@ -205,20 +205,24 @@ namespace sc2 {
         return center_pos / units.size();
     }
 
-    void sc2::MyConnectBot::setOrders(std::vector<Command> commands) {
-        for (const Command& cmd : commands) {
-            for (const ActionRaw& act : cmd.c_actions) {
-                switch (act.target_type) {
-                case ActionRaw::TargetType::TargetNone:
-                    Actions()->UnitCommand(observed_self_units, act.ability_id, true);
-                    break;
-                case ActionRaw::TargetType::TargetPosition:
-                    Actions()->UnitCommand(observed_self_units, act.ability_id, act.target_point, true);
-                    break;
-                case ActionRaw::TargetType::TargetUnitTag:
-                    Actions()->UnitCommand(observed_self_units, act.ability_id, findUnit(act.target_tag), true);
-                    break;
+    void sc2::MyConnectBot::setOrders(Command commands) {
+        for (const ActionRaw& act : commands.c_actions) {
+            switch (act.target_type) {
+            case ActionRaw::TargetType::TargetNone:
+                for (auto& u : observed_self_units) {
+                    action->UnitCommand(u, act.ability_id, true);
                 }
+                break;
+            case ActionRaw::TargetType::TargetPosition:
+                for (auto& u : observed_self_units) {
+                    action->UnitCommand(u, act.ability_id, act.target_point, true);
+                }
+                break;
+            case ActionRaw::TargetType::TargetUnitTag:
+                for (auto& u : observed_self_units) {
+                    action->UnitCommand(u, act.ability_id, findUnit(act.target_tag), true);
+                }
+                break;
             }
         }
     }

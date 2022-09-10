@@ -24,6 +24,7 @@ bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, std:
 		// SetRealtime(false)情况下允许支持暂停
 		m_simulators[i].SetRealtime(false);
 		m_simulators[i].SetMultithreaded(true);
+		m_simulators[i].SetRawAffectsSelection(true);
 		// simulators[i].SetFeatureLayers(sc2::FeatureLayerSettings(24.0f, 64, 64, 64, 64));
 		m_simulators[i].SetPortStart(port_start + port_step * i);
 		m_simulators[i].SetWindowLocation(1920 + 20 * i, 20 + 20 * i);
@@ -72,7 +73,7 @@ bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, std:
 					// 暂时注释
 					//if (m_bots[i].game_load_flag_) {
 					if (!m_bots[i].flag_test) {
-						m_bots[i].save_state.LoadState(load_state, m_bots[i], m_simulators[i], load_commands);
+						m_bots[i].save_state.LoadState(load_state, m_bots[i], m_simulators[i], load_commands[i]);
 						m_bots[i].observed_units.clear();
 						m_bots[i].game_load_flag_ = false;
 						m_bots[i].game_load_finish_flag_ = true;

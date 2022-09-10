@@ -48,6 +48,7 @@ private:
     size_t begin_enemyN = 0;
     double begin_selfHP = 0.0;
     double begin_enemyHP = 0.0;
+    ActionInterface* action = Actions();
 
 public:
 
@@ -68,7 +69,7 @@ public:
 
     Point2D getCenterPos(const Units& units);
 
-    void setOrders(std::vector<Command> commands);
+    void setOrders(Command commands);
 
     sc2::Unit* findUnit(Tag tag);
 
