@@ -1,7 +1,6 @@
 #include "sc2api/sc2_api.h"
 #include "MicroKitingBot.h"
 #include <iostream>
-#include <fstream>
 
 namespace sc2 {
 
@@ -57,6 +56,9 @@ namespace sc2 {
 					}
 
 					action->UnitCommand(u, ABILITY_ID::SMART, backup_target_);
+					if (std::find(train_data_vec.begin(), train_data_vec.end(), TrainData(mp, zp, backup_target_)) == train_data_vec.end()) {
+						train_data_vec.push_back(TrainData(mp, zp, backup_target_));
+					}
 				}
 				break;
 			}

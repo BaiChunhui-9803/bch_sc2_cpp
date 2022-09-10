@@ -64,6 +64,14 @@ void sc2::State::LoadState(State saved_state, Client& current_client, Coordinato
 	}
 }
 
+Point2D sc2::State::getCenterPos() {
+	Point2D center_pos;
+	for (auto& u : this->m_units_state) {
+		center_pos += u.m_pos;
+	}
+	return center_pos / this->m_units_state.size();
+}
+
 std::ostream& sc2::operator<<(std::ostream& os, const State& s) {
 	os << "Êä³öState_Units" << std::endl;
 	os << "id\ttag\t\ttype\tplayer\tlife\tenergy\tpos.x\tpos.y" << std::endl;

@@ -75,6 +75,8 @@ bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, std:
 					if (!m_bots[i].flag_test) {
 						m_bots[i].save_state.LoadState(load_state, m_bots[i], m_simulators[i], load_commands[i]);
 						m_bots[i].observed_units.clear();
+						m_bots[i].observed_self_units.clear();
+						m_bots[i].observed_enemy_units.clear();
 						m_bots[i].game_load_flag_ = false;
 						m_bots[i].game_load_finish_flag_ = true;
 						m_bots[i].flag_test = true;

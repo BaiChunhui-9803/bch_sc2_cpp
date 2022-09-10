@@ -14,7 +14,7 @@ namespace sc2 {
 		// 目标值
 		std::vector<float> s_objectives;
 		// 变量
-		std::vector<Command> s_commands;
+		Command s_commands;
 		int s_rank = 0;
 
 		bool operator==(const Solution& rhs) const {
@@ -27,11 +27,11 @@ namespace sc2 {
 		Solution() = default;
 		~Solution() = default;
 		Solution(int command_size, int objective_size) {
-			s_commands.resize(command_size);
+			s_commands.c_actions.resize(command_size);
 			s_objectives.resize(objective_size);
 		}
 		Solution(int command_size) {
-			s_commands.resize(command_size);
+			s_commands.c_actions.resize(command_size);
 			s_objectives.resize(1);
 		}
 

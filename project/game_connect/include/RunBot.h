@@ -35,7 +35,7 @@ namespace sc2 {
 		UnitTypeData m_marine; // for convenient
 
 		// algorithm configuration
-		const int command_length = 1;
+		const int command_length = 10;
 		const float zero_potential_energy_ratio = 0.8f;
 		const float advantage_range_factor = 3.f; // how long the attractive field from enemies can reach
 		const double m_attack_prob = 1;
@@ -43,7 +43,7 @@ namespace sc2 {
 		//std::function<bool(const Solution&, const Solution&)> m_compare_function = multi_greater;
 
 		int m_objective_number;
-		const int m_population_size = 10;
+		const int m_population_size = 1;
 		const int m_simulate_step_size = 100;
 		const int m_offspring_size = 10;
 		const float m_muatation_rate = 0.1f;
@@ -77,6 +77,8 @@ namespace sc2 {
 		Solution run(std::vector<Command> load_commands = std::vector<Command>(), State load_state = State());
 
 		std::vector<std::pair<size_t, MyScore>> runSingleSolution(std::vector<Command> load_commands = std::vector<Command>(), State load_state = State());
+
+		Solution generateSolution(State load_state = State());
 
 	private:
 

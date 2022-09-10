@@ -50,6 +50,7 @@ namespace sc2 {
         friend std::ostream& operator<<(std::ostream& os, const State& s);
         void LoadState(State saved_state, Client& current_client, Coordinator& current_coordinator, Command load_commands);
 		bool isBlank() { return (m_units_state.size() == 0); }
+		Point2D getCenterPos();
 	};
 
     struct GameInfCallFor {

@@ -80,6 +80,12 @@ namespace sc2 {
         //}
 
         //showGameInf();
+        Point2D pos;
+        for (int i = 0; i < units_self.size(); ++i) {
+            pos += Point2D(units_self[i]->pos);
+        }
+
+        std::cout << (pos / units_self.size()).x << "," << (pos / units_self.size()).y;
 
         if (game_pause_flag_ && !game_pause_finish_flag_) {
             m_scorer = getScore();

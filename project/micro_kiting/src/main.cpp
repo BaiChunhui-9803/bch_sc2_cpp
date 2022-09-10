@@ -12,7 +12,7 @@ int main(int argc, char* argv[]) {
 	coordinator.LoadSettings(argc, argv);
 
 	//coordinator.SetWindowLocation(800, 100);
-	coordinator.SetRealtime(true);
+	coordinator.SetRealtime(false);
 
 	//添加自定义bot
 	MicroKitingBot bot;
@@ -32,21 +32,25 @@ int main(int argc, char* argv[]) {
 	coordinator.LaunchStarcraft();
 
 	// 加载地图
-	//coordinator.StartGame(sc2::kMapMarineMicro);
+	coordinator.StartGame(sc2::kMapMarineMicro);
 	//coordinator.StartGame("Example/MarineMicro_6enemy.SC2Map");
 	//coordinator.StartGame("Example/MarineMicro_distributed.SC2Map");
-	coordinator.StartGame("Example/MarineMicro_distributed_circle.SC2Map");
+	//coordinator.StartGame("Example/MarineMicro_distributed_circle.SC2Map");
 
-
+	bool flag = false;
 	while (coordinator.Update()) {
 		if (sc2::PollKeyPress()) {
 			break;
 		}
 
-		if (bot.get_Game_Ended_()) {
+		if (!flag && bot.get_Game_Ended_()) {
+			bot.printGoodTrainedData();
+			flag = true;
 			//break;
 		}
 	}
+
+	bot.printBadTrainedData();
 
 	return 0;
 }
