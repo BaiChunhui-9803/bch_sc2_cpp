@@ -39,7 +39,7 @@ private:
 public:
     std::vector<std::pair<size_t, MyScore>> getScorer() { return m_scorer; }
 public:
-    bool LaunchMultiGame(size_t pop_size = 1, size_t step_size = 100, std::vector<Command> load_commands = std::vector<Command>(), State load_state = State());
+    bool LaunchMultiGame(size_t pop_size = 1, size_t step_size = 100, std::vector<Solution> load_solutions = std::vector<Solution>(), State load_state = State());
 
     void pushSingleScore(size_t id, MyScore single_score);
 

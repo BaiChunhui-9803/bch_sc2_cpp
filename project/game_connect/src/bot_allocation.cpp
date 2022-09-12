@@ -1,6 +1,6 @@
 #include "bot_allocation.h"
 
-bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, std::vector<Command> load_commands, State load_state) {
+bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, std::vector<Solution> load_solutions, State load_state) {
 
 	// 游戏必要信息设置
 	std::string map = "Example/MarineMicro.SC2Map";
@@ -73,7 +73,7 @@ bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, std:
 					// 暂时注释
 					//if (m_bots[i].game_load_flag_) {
 					if (!m_bots[i].flag_test) {
-						m_bots[i].save_state.LoadState(load_state, m_bots[i], m_simulators[i], load_commands[i]);
+						m_bots[i].save_state.LoadState(load_state, m_bots[i], m_simulators[i], load_solutions[i].s_commands);
 						m_bots[i].observed_units.clear();
 						m_bots[i].observed_self_units.clear();
 						m_bots[i].observed_enemy_units.clear();

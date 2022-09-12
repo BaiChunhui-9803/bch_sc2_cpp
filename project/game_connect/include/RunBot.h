@@ -74,9 +74,9 @@ namespace sc2 {
 			m_evaluators[0] = std::bind(&RunBot::simulate_single_solution_back_score, this, _1);
 		}
 
-		Solution run(std::vector<Command> load_commands = std::vector<Command>(), State load_state = State());
+		Solution run(std::vector<Solution> load_solutions, State load_state = State());
 
-		std::vector<std::pair<size_t, MyScore>> runSingleSolution(std::vector<Command> load_commands = std::vector<Command>(), State load_state = State());
+		std::vector<std::pair<size_t, MyScore>> runMultiSolution(std::vector<Solution> load_solutions, State load_state = State());
 
 		Solution generateSolution(State load_state = State());
 

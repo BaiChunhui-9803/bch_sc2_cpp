@@ -43,8 +43,10 @@ using namespace std;
 	//cmd.c_actions.push_back();
 	//command_vec.push_back()
 	//bot.run();
-	bot.generateSolution();
-	bot.runSingleSolution(command_vec);
+	Solution sol = bot.generateSolution();
+	std::vector<Solution> sols;
+	sols.push_back(sol);
+	bot.runMultiSolution(sols);
 
 	while(1){}
 

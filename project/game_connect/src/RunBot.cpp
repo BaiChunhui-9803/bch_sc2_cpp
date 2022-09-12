@@ -1,9 +1,9 @@
 #include "RunBot.h"
 
-Solution sc2::RunBot::run(std::vector<Command> load_commands, State load_state) {
+Solution sc2::RunBot::run(std::vector<Solution> load_solutions, State load_state) {
 	int POPSIZE = 1;
 	int STEPSIZE = 100;
-	m_bot_allocation.LaunchMultiGame(POPSIZE, STEPSIZE, load_commands);
+	m_bot_allocation.LaunchMultiGame(POPSIZE, STEPSIZE, load_solutions);
 	std::vector<std::pair<size_t, MyScore>> scorer = m_bot_allocation.getScorer();
 	for (int i = 0; i < scorer.size(); ++i) {
 		std::cout << "scorer[" << scorer.at(i).first << "]\t"
@@ -15,13 +15,13 @@ Solution sc2::RunBot::run(std::vector<Command> load_commands, State load_state) 
 	return Solution();
 }
 
-std::vector<std::pair<size_t, MyScore>> sc2::RunBot::runSingleSolution(std::vector<Command> load_commands, State load_state) {
+std::vector<std::pair<size_t, MyScore>> sc2::RunBot::runMultiSolution(std::vector<Solution> load_solutions, State load_state) {
 	// 每个simulator占用一个Command
 	if (load_state.isBlank()) {
-		m_bot_allocation.LaunchMultiGame(m_population_size, m_simulate_step_size, load_commands);
+		m_bot_allocation.LaunchMultiGame(m_population_size, m_simulate_step_size, load_solutions);
 	}
 	else {
-		m_bot_allocation.LaunchMultiGame(m_population_size, m_simulate_step_size, load_commands, load_state);
+		m_bot_allocation.LaunchMultiGame(m_population_size, m_simulate_step_size, load_solutions, load_state);
 	}
 	std::vector<std::pair<size_t, MyScore>> scorer = m_bot_allocation.getScorer();
 	return scorer;
