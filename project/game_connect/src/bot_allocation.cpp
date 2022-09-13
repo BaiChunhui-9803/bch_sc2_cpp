@@ -88,9 +88,9 @@ bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, std:
 					//}
 					++step;
 					//std::cout << step << std::endl;
-					if (step >= 50) {
-						m_bots[i].game_stop_observe_flag_ = true;
-					}
+					//if (step >= 50) {
+					//	m_bots[i].game_stop_observe_flag_ = true;
+					//}
 					//if (step >= step_size) {
 					//	m_bots[i].game_pause_flag_ = true;
 					//	m_bots[i].game_save_flag_ = true;
@@ -105,9 +105,7 @@ bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, std:
 					//	//std::cout << m_bots[i].getScore();
 					//}
 					if (m_bots[i].game_finish_flag_) {
-						for (size_t n = 0; n < m_bots[i].m_scorer_vec.size(); ++n) {
-							std::cout << "[" << i << "][" << n << "]·ÖÊý:" << m_bots[i].m_scorer_vec[n].m_total_score << std::endl;
-						}
+						m_scorer.push_back(std::pair < size_t, std::vector<MyScore>>(i, m_bots[i].m_scorer_vec));
 						m_bots[i].game_idle_flag = true;
 						break;
 					}

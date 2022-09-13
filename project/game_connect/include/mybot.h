@@ -41,6 +41,7 @@ public:
     bool game_leave_flag = false;
     bool game_set_commands_finish_flag = false;
     bool flag_test = false;
+    bool game_rerun_flag_ = false;
 
     std::map<sc2::Tag, sc2::Unit> observed_units;
     Units observed_self_units;

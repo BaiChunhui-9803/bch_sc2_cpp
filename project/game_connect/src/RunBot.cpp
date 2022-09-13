@@ -129,6 +129,7 @@ void RunBot::setOrders(Command commands) {
 
 std::vector<std::pair<size_t, std::vector<MyScore>>> sc2::RunBot::runMultiSolution(std::vector<std::vector<Solution>> load_solutions, State load_state) {
 	// 每个simulator占用一个Command
+	BotAllocation m_bot_allocation;
 	if (load_state.isBlank()) {
 		m_bot_allocation.LaunchMultiGame(PopSize, SimulateStepSize, load_solutions);
 	}
@@ -146,7 +147,7 @@ Solution sc2::RunBot::generateSolution(State load_state) {
 	if (load_state.isBlank()) {
 		for (size_t i = 0; i < 2 * CommandSize; ++i) {
 			if (i % 2 == 0) {
-				sol.s_commands.c_actions[i].ability_id = ABILITY_ID::SMART;
+				sol.s_commands.c_actions[i].ability_id = ABILITY_ID::MOVE_MOVE;
 				sol.s_commands.c_actions[i].target_type = ActionRaw::TargetType::TargetPosition;
 				sol.s_commands.c_actions[i].target_point = Point2D(55.8493, 64.4088) + Point2DInPolar(GetRandomFraction() * trained_weight, GetRandomFraction() * 2 * PI).toPoint2D();
 			}
@@ -160,7 +161,7 @@ Solution sc2::RunBot::generateSolution(State load_state) {
 	else {
 		for (size_t i = 0; i < 2 * CommandSize; ++i) {
 			if (i % 2 == 0) {
-				sol.s_commands.c_actions[i].ability_id = ABILITY_ID::SMART;
+				sol.s_commands.c_actions[i].ability_id = ABILITY_ID::MOVE_MOVE;
 				sol.s_commands.c_actions[i].target_type = ActionRaw::TargetType::TargetPosition;
 				sol.s_commands.c_actions[i].target_point = load_state.getCenterPos() + Point2DInPolar(GetRandomFraction() * trained_weight, GetRandomFraction() * 2 * PI).toPoint2D();
 			}
@@ -196,6 +197,7 @@ Solution sc2::RunBot::GA() {
 		cross();
 		//变异
 		mutate();
+
 		calculateFitness();
 	}
 
@@ -209,7 +211,7 @@ void sc2::RunBot::initializeAlgorithm() {
 }
 
 void sc2::RunBot::initializePopulation() {
-	for (size_t i = 0; i < PopSize; ++i) {
+	for (size_t i = 0; i < PopSize * SimulateSize; ++i) {
 		m_population[i] = generateSolution(m_save_state);
 	}
 }
@@ -220,11 +222,12 @@ void sc2::RunBot::calculateFitness() {
 	float this_best = 0.0;
 	size_t this_best_id = 0;
 	for (size_t i = 0; i < scores.size(); ++i) {
-		std::cout << "id:" << i << "\tscore:" << scores[i].second.m_total_score << std::endl;
-		if (scores[i].second.m_total_score > this_best) {
-			this_best = scores[i].second.m_total_score;
-			this_best_id = scores[i].first;
-
+		for (size_t j = 0; j < scores[i].second.size(); ++j) {
+			std::cout << "[" << i << "][" << j << "]分数:" << scores[i].second[j].m_total_score << std::endl;
+			if (scores[i].second[j].m_total_score > this_best) {
+				this_best = scores[i].second[j].m_total_score;
+				this_best_id = i * SimulateSize + j;
+			}
 		}
 	}
 

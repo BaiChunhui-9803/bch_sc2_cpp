@@ -61,24 +61,38 @@ namespace sc2 {
         }
 
         if (game_load_finish_flag_ && !game_set_commands_finish_flag) {
+            if (!has_save) {
+                Control()->Save();
+                has_save = true;
+            }
             setOrders(save_state.m_commands[m_num]);
             game_set_commands_finish_flag = true;
         }
 
-        if (!has_save) {
-            Control()->Save();
-            has_save = true;
+        if (game_rerun_flag_) {
+            setOrders(save_state.m_commands[m_num]);
+            game_rerun_flag_ = false;
         }
 
-        if (m_count >= 99) {
-            m_count = 0;
+        if (m_num >= SimulateSize - 1 && m_count >= 99) {
             getScore();
-            ++m_num;
-            Control()->Load();
-        }
-
-        if (m_num >= 9) {
             game_finish_flag_ = true;
+        }
+        else {
+            if (m_count >= 99) {
+                m_count = 0;
+                getScore();
+                ++m_num;
+                Control()->Load();
+                observed_units.clear();
+                observed_self_units.clear();
+                observed_enemy_units.clear();
+                observation = Observation();
+                pushObservedUnits(observation);
+                game_rerun_flag_ = true;
+                //setOrders(save_state.m_commands[m_num]);
+            }
+            //setOrders(save_state.m_commands[m_num]);
         }
 
         debug->DebugMoveCamera(getCenterPos(units_self));

@@ -5,6 +5,8 @@
 #include "Command.h"
 #include "Solution.h"
 
+#define SimulateSize 10				//一个客户端模拟解的个数
+
 namespace sc2 {
 
 	////////// 公共函数部分 /////////
@@ -45,6 +47,7 @@ namespace sc2 {
 		State() {
 			m_units_state = std::vector<UnitState>();
 			m_commands = std::vector<Command>();
+			//m_commands.resize(SimulateSize);
 		}
 		State(std::vector<UnitState> unit_state_vec) :m_units_state(unit_state_vec) {}
 		State SaveState(const ObservationInterface* observation);

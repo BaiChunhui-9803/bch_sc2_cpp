@@ -1,7 +1,7 @@
 #ifndef RUNBOT_H
 #define RUNBOT_H
 
-#define PopSize 1					//初始种群大小
+#define PopSize 2					//初始种群大小
 #define SimulateSize 10				//一个客户端模拟解的个数
 #define GenerationsMaxN 200         //最大代数
 #define CommandSize 10				//一个解的命令长度
@@ -51,7 +51,6 @@ namespace sc2 {
 		Units observed_enemy_units;
 		ActionInterface* action = Actions();
 		// 一个bot分配器，在这里模拟运行多个bot并返回解的vector
-		BotAllocation m_bot_allocation;
 
 		const double PI = atan(1.) * 4.;
 

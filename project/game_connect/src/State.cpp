@@ -27,7 +27,9 @@ void sc2::State::LoadState(State saved_state, Client& current_client, Coordinato
 
 	*this = saved_state;
 	for (int i = 0; i < load_solutions.size(); ++i) {
-		this->m_commands.push_back(load_solutions[i].s_commands);
+		if (load_solutions[i].s_objectives.size() != 0) {
+			this->m_commands.push_back(load_solutions[i].s_commands);
+		}
 	}
 	if (!saved_state.isBlank()) {
 		// 杀死所有现有单位
