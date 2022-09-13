@@ -61,18 +61,34 @@ namespace sc2 {
         }
 
         if (game_load_finish_flag_ && !game_set_commands_finish_flag) {
-            setOrders(save_state.m_commands);
+            setOrders(save_state.m_commands[m_num]);
             game_set_commands_finish_flag = true;
+        }
+
+        if (!has_save) {
+            Control()->Save();
+            has_save = true;
+        }
+
+        if (m_count >= 99) {
+            m_count = 0;
+            getScore();
+            ++m_num;
+            Control()->Load();
+        }
+
+        if (m_num >= 9) {
+            game_finish_flag_ = true;
         }
 
         debug->DebugMoveCamera(getCenterPos(units_self));
         debug->SendDebug();
 
-        if (game_save_flag_) {
-            save_state = save_state.SaveState(observation);
-            //std::cout << save_state;
-            game_save_flag_ = false;
-        }
+        //if (game_save_flag_) {
+        //    save_state = save_state.SaveState(observation);
+        //    //std::cout << save_state;
+        //    game_save_flag_ = false;
+        //}
 
         //if (game_load_flag_) {
         //    setGameInf(save_state);
@@ -81,10 +97,12 @@ namespace sc2 {
 
         //showGameInf();
 
-        if (game_pause_flag_ && !game_pause_finish_flag_) {
-            m_scorer = getScore();
-            game_pause_finish_flag_ = true;
-        }
+        //if (game_pause_flag_ && !game_pause_finish_flag_) {
+        //    m_scorer = getScore();
+        //    game_pause_finish_flag_ = true;
+        //}
+
+        ++m_count;
 	}
 
     void sc2::MyConnectBot::pushObservedUnits(const ObservationInterface*& ob) {
@@ -175,7 +193,7 @@ namespace sc2 {
         std::cout << "begin_enemyHP:" << begin_enemyHP << std::endl;
     }
 
-    MyScore sc2::MyConnectBot::getScore() {
+    std::vector<MyScore> sc2::MyConnectBot::getScore() {
         size_t current_selfN= 0;
         size_t current_enemyN = 0;
         double current_selfHP = 0.0;
@@ -191,10 +209,10 @@ namespace sc2 {
                 current_enemyHP += u->health;
             }
         }
-        return MyScore((begin_enemyHP - current_enemyHP),
+        m_scorer_vec.push_back(MyScore((begin_enemyHP - current_enemyHP),
             (begin_selfHP - current_selfHP),
-            (begin_enemyHP - current_enemyHP) - (begin_selfHP - current_selfHP)
-        );
+            (begin_enemyHP - current_enemyHP) - (begin_selfHP - current_selfHP)));
+        return m_scorer_vec;
     }
 
     Point2D sc2::MyConnectBot::getCenterPos(const Units& units) {

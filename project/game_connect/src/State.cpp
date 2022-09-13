@@ -23,10 +23,12 @@ State sc2::State::SaveState(const ObservationInterface* observation) {
 	return save_state;
 }
 
-void sc2::State::LoadState(State saved_state, Client& current_client, Coordinator& current_coordinator, Command load_commands) {
+void sc2::State::LoadState(State saved_state, Client& current_client, Coordinator& current_coordinator, std::vector<Solution> load_solutions) {
 
 	*this = saved_state;
-	this->m_commands = load_commands;
+	for (int i = 0; i < load_solutions.size(); ++i) {
+		this->m_commands.push_back(load_solutions[i].s_commands);
+	}
 	if (!saved_state.isBlank()) {
 		// 杀死所有现有单位
 		for (const Unit* u : current_client.Observation()->GetUnits()) {

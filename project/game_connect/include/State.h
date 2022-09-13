@@ -3,6 +3,7 @@
 #include<sc2api/sc2_api.h>
 //#include "action_order.h"
 #include "Command.h"
+#include "Solution.h"
 
 namespace sc2 {
 
@@ -38,17 +39,18 @@ namespace sc2 {
 
 	struct State {
 		std::vector<UnitState> m_units_state;
-		Command m_commands;
+		//一个客户端模拟多个命令，因此是vector
+		std::vector<Command> m_commands;
 
 		State() {
 			m_units_state = std::vector<UnitState>();
-			m_commands = Command();
+			m_commands = std::vector<Command>();
 		}
 		State(std::vector<UnitState> unit_state_vec) :m_units_state(unit_state_vec) {}
 		State SaveState(const ObservationInterface* observation);
 
         friend std::ostream& operator<<(std::ostream& os, const State& s);
-        void LoadState(State saved_state, Client& current_client, Coordinator& current_coordinator, Command load_commands);
+        void LoadState(State saved_state, Client& current_client, Coordinator& current_coordinator, std::vector<Solution> load_solutions);
 		bool isBlank() { return (m_units_state.size() == 0); }
 		Point2D getCenterPos();
 	};

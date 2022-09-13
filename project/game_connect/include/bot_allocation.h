@@ -33,15 +33,15 @@ private:
     std::vector<sc2::MyConnectBot> m_bots;
     std::vector<sc2::Coordinator> m_simulators;
     std::vector<sc2::GameInfCallFor> m_gameinfs;
-    std::vector<std::pair<size_t, MyScore>> m_scorer;
+    std::vector<std::pair<size_t, std::vector<MyScore>>> m_scorer;
 
     State m_state_save;
 public:
-    std::vector<std::pair<size_t, MyScore>> getScorer() { return m_scorer; }
+    std::vector<std::pair<size_t, std::vector<MyScore>>> getScorer() { return m_scorer; }
 public:
-    bool LaunchMultiGame(size_t pop_size = 1, size_t step_size = 100, std::vector<Solution> load_solutions = std::vector<Solution>(), State load_state = State());
+    bool LaunchMultiGame(size_t pop_size = 1, size_t step_size = 100, std::vector<std::vector<Solution>> load_solutions = std::vector<std::vector<Solution>>(), State load_state = State());
 
-    void pushSingleScore(size_t id, MyScore single_score);
+    //void pushSingleScore(size_t id, MyScore single_score);
 
     bool isAllSimulatorEnd();
 

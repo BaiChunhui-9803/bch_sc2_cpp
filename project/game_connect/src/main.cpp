@@ -44,6 +44,10 @@ int main(int argc, char* argv[]) {
 		else if (bot.m_game_stage == Simulate_Flag) {
 			/*bot.generateSolution(bot.m_save_state);*/
 			bot.GA();
+			bot.m_game_stage = Update_Flag;
+		}
+		else if (bot.m_game_stage == Blank_Flag) {
+			break;
 		}
 
 

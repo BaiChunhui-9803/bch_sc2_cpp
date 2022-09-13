@@ -27,13 +27,16 @@ public:
     // 游戏走帧执行 Your bots OnStep function will be called each time the coordinator steps the simulation forward.
     virtual void OnStep() final;
 
+    size_t m_count = 0;
+    size_t m_num = 0;
+    bool has_save = false;
     State save_state = State();
     bool game_stop_observe_flag_ = false;
     bool game_pause_flag_ = false;
     bool game_save_flag_ = false;
     bool game_load_flag_ = false;
     bool game_load_finish_flag_ = false;
-    bool game_pause_finish_flag_ = false;
+    bool game_finish_flag_ = false;
     bool game_idle_flag = false;
     bool game_leave_flag = false;
     bool game_set_commands_finish_flag = false;
@@ -42,7 +45,7 @@ public:
     std::map<sc2::Tag, sc2::Unit> observed_units;
     Units observed_self_units;
     Units observed_enemy_units;
-    MyScore m_scorer;
+    std::vector<MyScore> m_scorer_vec;
 private:
     size_t begin_selfN = 0;
     size_t begin_enemyN = 0;
@@ -65,7 +68,7 @@ public:
     // not used now
     void getGameInf();
 
-    MyScore getScore();
+    std::vector<MyScore> getScore();
 
     Point2D getCenterPos(const Units& units);
 
