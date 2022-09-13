@@ -30,6 +30,9 @@
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\GA.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\GA_simulate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\Point2DPolar.h">
       <Filter>Header Files</Filter>
     </ClInclude>

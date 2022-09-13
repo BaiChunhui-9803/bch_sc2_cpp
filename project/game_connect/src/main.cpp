@@ -14,41 +14,52 @@
 #ifdef BUILD_FOR_MULTI_THREADS
 //*************************************************************************************************
 int main(int argc, char* argv[]) {
-using namespace std;
-
-	// 设置客户端数量、游戏步长
-	//int POPSIZE = 10;
-	//int STEPSIZE = 100;
-
-	//sc2::BotAllocation bot_manager;
-	//bot_manager.LaunchMultiGame(POPSIZE, STEPSIZE);
-
+	using namespace std;
 	sc2::RunBot bot;
-	std::vector<Command> command_vec;
-	//command_vec.resize(1);
-	//command_vec[0].c_actions.resize(2);
-	//command_vec[0].c_actions[0].ability_id = ABILITY_ID::SMART;
-	//command_vec[0].c_actions[0].target_type = ActionRaw::TargetType::TargetPosition;
-	//command_vec[0].c_actions[0].target_point = Point2D(60, 60);
-	//command_vec[0].c_actions[1].ability_id = ABILITY_ID::SMART;
-	//command_vec[0].c_actions[1].target_type = ActionRaw::TargetType::TargetPosition;
-	//command_vec[0].c_actions[1].target_point = Point2D(60, 50);
-	//command_vec[1].c_actions.resize(2);
-	//command_vec[1].c_actions[0].ability_id = ABILITY_ID::SMART;
-	//command_vec[1].c_actions[0].target_type = ActionRaw::TargetType::TargetPosition;
-	//command_vec[1].c_actions[0].target_point = Point2D(50, 60);
-	//command_vec[1].c_actions[1].ability_id = ABILITY_ID::SMART;
-	//command_vec[1].c_actions[1].target_type = ActionRaw::TargetType::TargetPosition;
-	//command_vec[1].c_actions[1].target_point = Point2D(60, 60);
-	//cmd.c_actions.push_back();
-	//command_vec.push_back()
-	//bot.run();
-	Solution sol = bot.generateSolution();
-	std::vector<Solution> sols;
-	sols.push_back(sol);
-	bot.runMultiSolution(sols);
+	std::string map = "Example/MarineMicro.SC2Map";
+	std::string blank_map = "Example/BlankMap.SC2Map";
+	sc2::Coordinator coordinator;
 
-	while(1){}
+	coordinator.SetParticipants({
+		CreateParticipant(sc2::Race::Terran, &bot),
+			CreateComputer(sc2::Race::Zerg,
+			sc2::Difficulty::VeryEasy,
+			sc2::AIBuild::Macro,
+			"VeryEasy"),
+		});
+
+	coordinator.SetProcessPath("C:\\Program Files (x86)\\StarCraft II\\Versions\\Base87702\\SC2.exe");
+	coordinator.SetRealtime(false);
+	coordinator.SetMultithreaded(true);
+	coordinator.SetRawAffectsSelection(true);
+	coordinator.SetWindowLocation(960, 20);
+	coordinator.LaunchStarcraft();
+	coordinator.StartGame(map);
+
+	while (1) {
+
+		if (bot.m_game_stage == Update_Flag) {
+			coordinator.Update();
+		}
+		else if (bot.m_game_stage == Simulate_Flag) {
+			/*bot.generateSolution(bot.m_save_state);*/
+			bot.GA();
+		}
+
+
+		if (sc2::PollKeyPress()) {
+			break;
+		}
+	}
+
+
+	std::vector<Command> command_vec;
+
+	//Solution sol = bot.generateSolution();
+	//std::vector<Solution> sols;
+	//sols.push_back(sol);
+	//bot.runMultiSolution(sols);
+
 
 	// Load的测试部分
 	//std::vector<sc2::UnitState> unit_state_vec;

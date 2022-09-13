@@ -1,12 +1,30 @@
 #ifndef RUNBOT_H
 #define RUNBOT_H
 
+#define PopSize 2                  //初始种群大小
+#define GenerationsMaxN 200         //最大代数
+#define CommandSize 10				//一个解的命令长度
+#define SimulateStepSize 100		//模拟步长
+#define CountN 10                   //控制代数
+#define p_cross 0.7                 //交叉概率
+#define p_mutate 0.05               //变异概率
+
+
 #include <iostream>
 #include <sc2api/sc2_api.h>
+#include "sc2utils/sc2_arg_parser.h"
+#include "sc2utils/sc2_manage_process.h"
 #include <map>
 #include <functional>
 #include "bot_allocation.h"
 #include "Solution.h"
+
+enum Game_Stage {
+	//主客户端运行环节
+	Update_Flag = 0,
+	//辅客户端模拟环节
+	Simulate_Flag = 1
+};
 
 using namespace std::placeholders;
 
@@ -16,48 +34,28 @@ namespace sc2 {
 		using Population = std::vector<Solution>;
 		using Evaluator = std::function<float(const Solution& s)>;
 
+	public:
+		// 游戏启动执行
+		virtual void OnGameStart() final;
+		// 游戏走帧执行 Your bots OnStep function will be called each time the coordinator steps the simulation forward.
+		virtual void OnStep() final;
+		// 单位被摧毁执行
+		virtual void OnUnitDestroyed(const Unit* unit) override;
+		virtual void OnUnitIdle(const sc2::Unit* unit_) override;
 	private:
 		// 一个bot分配器，在这里模拟运行多个bot并返回解的vector
 		BotAllocation m_bot_allocation;
 
 		const double PI = atan(1.) * 4.;
-		// Some data from the proto is presented in old 'normal' speed, now I should reset them to the faster speed.
-		const float m_frames_per_second = 16;
 
-		// game data should be updated
-		Units m_alive_self_units;
-		Units m_alive_enemy_units;
-		Units m_all_alive_units;
-		bool m_is_save = false; // for forward model
-	   // constant game data
-		GameInfo m_game_info;
-		UnitTypes m_unit_types;
-		UnitTypeData m_marine; // for convenient
-
-		// algorithm configuration
-		const int command_length = 10;
-		const float zero_potential_energy_ratio = 0.8f;
-		const float advantage_range_factor = 3.f; // how long the attractive field from enemies can reach
-		const double m_attack_prob = 1;
-		const double m_killing_bonus_factor = 3;
-		//std::function<bool(const Solution&, const Solution&)> m_compare_function = multi_greater;
-
-		int m_objective_number;
-		const int m_population_size = 1;
-		const int m_simulate_step_size = 100;
-		const int m_offspring_size = 10;
-		const float m_muatation_rate = 0.1f;
-		const float m_crossover_rate = 1;
-		const double m_theta_mutate_step = 2 * PI / 10.;
-		const int m_produce_times = 20;
-
-		// algorithm content
 		Population m_population;
-		std::vector<float> m_damage_objective;
-		std::vector<float> m_threat_objective;
-		std::vector<Evaluator> m_evaluators;
+
+		Solution m_best_solution;
 
 	public:
+		size_t step = 50;
+		State m_save_state = State();
+		Game_Stage m_game_stage = Update_Flag;
 		//virtual void OnGameStart() final;
 		//virtual void OnStep() final;
 		//todo control units by rules
@@ -65,22 +63,25 @@ namespace sc2 {
 		//virtual void OnGameEnd() final;
 
 		RunBot() {
-			m_population.reserve(m_population_size + m_offspring_size);
-			m_damage_objective.reserve(m_population_size + m_offspring_size);
-			m_threat_objective.reserve(m_population_size + m_offspring_size);
-			// 目前只考虑单个适应值
-			m_objective_number = 1;
-			m_evaluators.resize(m_objective_number);
-			m_evaluators[0] = std::bind(&RunBot::simulate_single_solution_back_score, this, _1);
-		}
+			m_population.reserve(PopSize);
 
-		Solution run(std::vector<Solution> load_solutions, State load_state = State());
+			//m_evaluators[0] = std::bind(&RunBot::simulate_single_solution_back_score, this, _1);
+		}
 
 		std::vector<std::pair<size_t, MyScore>> runMultiSolution(std::vector<Solution> load_solutions, State load_state = State());
 
 		Solution generateSolution(State load_state = State());
 
+		std::vector<Solution> GA();
+
+		void initializeAlgorithm();
+
+		void initializePopulation();
+
+		void calculateFitness();
+
 	private:
+
 
 		// generate a random solution
 		//Solution generate_random_solution();

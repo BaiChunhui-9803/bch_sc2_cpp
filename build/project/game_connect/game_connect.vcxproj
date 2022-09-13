@@ -324,6 +324,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="D:\bch_sc2_cpp\main\project\game_connect\src\sc2utility.cpp" />
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\Command.h" />
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\GA.h" />
+    <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\GA_simulate.h" />
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\Point2DPolar.h" />
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\RunBot.h" />
     <ClInclude Include="D:\bch_sc2_cpp\main\project\game_connect\include\Solution.h" />
