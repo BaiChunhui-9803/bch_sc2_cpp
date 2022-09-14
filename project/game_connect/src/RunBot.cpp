@@ -152,9 +152,12 @@ Solution sc2::RunBot::generateSolution(State load_state) {
 				sol.s_commands.c_actions[i].target_point = Point2D(55.8493, 64.4088) + Point2DInPolar(GetRandomFraction() * trained_weight, GetRandomFraction() * 2 * PI).toPoint2D();
 			}
 			else {
-				sol.s_commands.c_actions[i].ability_id = ABILITY_ID::ATTACK;
-				sol.s_commands.c_actions[i].target_type = ActionRaw::TargetType::TargetPosition;
-				sol.s_commands.c_actions[i].target_point = sol.s_commands.c_actions[i - 1].target_point;
+				sol.s_commands.c_actions[i].ability_id = ABILITY_ID::ATTACK_ATTACK;
+				//sol.s_commands.c_actions[i].target_type = ActionRaw::TargetType::TargetPosition;
+				//sol.s_commands.c_actions[i].target_point = sol.s_commands.c_actions[i - 1].target_point;
+				sol.s_commands.c_actions[i].target_type = ActionRaw::TargetUnitTag;
+				size_t id = rand() % observed_enemy_units.size();
+				sol.s_commands.c_actions[i].target_tag = observed_enemy_units[id]->tag;
 			}
 		}
 	}
@@ -166,9 +169,12 @@ Solution sc2::RunBot::generateSolution(State load_state) {
 				sol.s_commands.c_actions[i].target_point = load_state.getCenterPos() + Point2DInPolar(GetRandomFraction() * trained_weight, GetRandomFraction() * 2 * PI).toPoint2D();
 			}
 			else {
-				sol.s_commands.c_actions[i].ability_id = ABILITY_ID::ATTACK;
-				sol.s_commands.c_actions[i].target_type = ActionRaw::TargetType::TargetPosition;
-				sol.s_commands.c_actions[i].target_point = sol.s_commands.c_actions[i - 1].target_point;
+				sol.s_commands.c_actions[i].ability_id = ABILITY_ID::ATTACK_ATTACK;
+				//sol.s_commands.c_actions[i].target_type = ActionRaw::TargetType::TargetPosition;
+				//sol.s_commands.c_actions[i].target_point = sol.s_commands.c_actions[i - 1].target_point;
+				sol.s_commands.c_actions[i].target_type = ActionRaw::TargetUnitTag;
+				size_t id = rand() % observed_enemy_units.size();
+				sol.s_commands.c_actions[i].target_tag = observed_enemy_units[id]->tag;
 			}
 		}
 	}
@@ -189,8 +195,6 @@ Solution sc2::RunBot::GA() {
 
 	calculateFitness();
 
-	std::cout << "best:" << m_best_solution.s_objectives << std::endl;
-
 	//迭代过程
 	for (m_count = 0; m_count <= GenerationsMaxN; ++m_count) {
 		//选择
@@ -201,8 +205,6 @@ Solution sc2::RunBot::GA() {
 		mutate();
 
 		calculateFitness();
-
-		std::cout << "best:" << m_best_solution.s_objectives << std::endl;
 	}
 
 	return m_best_solution;
@@ -225,9 +227,11 @@ void sc2::RunBot::calculateFitness() {
 	std::vector<std::pair<size_t, std::vector<MyScore>>> scores = runMultiSolution(turnPopToSolvec(m_population), m_save_state);
 	float this_best = 0.0;
 	size_t this_best_id = 0;
+	float sum = 0;
 	for (size_t i = 0; i < scores.size(); ++i) {
 		for (size_t j = 0; j < scores[i].second.size(); ++j) {
 			m_population[i * SimulateSize + j].s_objectives = scores[i].second[j].m_total_score;
+			sum += m_population[i * SimulateSize + j].s_objectives;
 			std::cout << "[" << i << "][" << j << "]分数:" << scores[i].second[j].m_total_score << std::endl;
 			if (scores[i].second[j].m_total_score > this_best) {
 				this_best = scores[i].second[j].m_total_score;
@@ -240,6 +244,13 @@ void sc2::RunBot::calculateFitness() {
 		m_best_solution = m_population[this_best_id];
 	}
 
+	m_avg_fitness = sum / m_population.size();
+
+	std::cout << "best:" << m_best_solution.s_objectives << std::endl;
+	std::ofstream fout;
+	fout.open("D:/bch_sc2_cpp/main/project/game_connect/datafile/random_datas.txt", std::ios::app);
+	fout << m_best_solution.s_objectives << "\t" << m_avg_fitness << std::endl;
+	fout.close();
 }
 
 void sc2::RunBot::select() {
@@ -303,14 +314,14 @@ void sc2::RunBot::cross() {
 			//	continue;
 			//}
 			do {
-				l = rand() % CommandSize;
-				a = rand() % CommandSize;
+				l = rand() % (2 * CommandSize);
+				a = rand() % (2 * CommandSize);
 			} while (l >= a);
 
 			for (j = 0; j < 2 * CommandSize; ++j) {
-				if (j < 2 * l) {
+				if (j < l) {
 					cmd1.c_actions[j] = m_population[ca].s_commands.c_actions[j];
-				} else if (j >= 2 * l && j < 2 * a) {
+				} else if (j >= l && j < a) {
 					cmd1.c_actions[j] = m_population[cb].s_commands.c_actions[j];
 				} else {
 					cmd1.c_actions[j] = m_population[ca].s_commands.c_actions[j];
@@ -320,7 +331,7 @@ void sc2::RunBot::cross() {
 			m_population[i].s_commands = cmd1;
 		}
 	}
-	for (i = 0; i < m_population.size(); i++) {
+	/*for (i = 0; i < m_population.size(); i++) {
 		for (j = 0; j < m_population[i].s_commands.c_actions.size(); ++j) {
 			if (j % 2) {
 				if (m_population[i].s_commands.c_actions[j].target_point != m_population[i].s_commands.c_actions[j - 1].target_point) {
@@ -329,7 +340,7 @@ void sc2::RunBot::cross() {
 				}
 			}
 		}
-	}
+	}*/
 }
 
 void sc2::RunBot::mutate() {

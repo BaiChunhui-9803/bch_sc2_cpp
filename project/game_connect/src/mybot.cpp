@@ -74,15 +74,16 @@ namespace sc2 {
             game_rerun_flag_ = false;
         }
 
-        if (m_num >= SimulateSize - 1 && m_count >= 99) {
+        if (m_num >= SimulateSize - 1 && m_count >= SimulateStepSize - 1) {
             getScore();
             game_finish_flag_ = true;
         }
         else {
-            if (m_count >= 99) {
+            if (m_count >= SimulateStepSize - 1) {
                 m_count = 0;
                 getScore();
                 ++m_num;
+                action->SendChat("start " + std::to_string(m_num) + " simulation");
                 Control()->Load();
                 observed_units.clear();
                 observed_self_units.clear();
@@ -242,17 +243,17 @@ namespace sc2 {
             switch (act.target_type) {
             case ActionRaw::TargetType::TargetNone:
                 for (auto& u : observed_self_units) {
-                    action->UnitCommand(u, act.ability_id, true);
+                    Actions()->UnitCommand(u, act.ability_id, true);
                 }
                 break;
             case ActionRaw::TargetType::TargetPosition:
                 for (auto& u : observed_self_units) {
-                    action->UnitCommand(u, act.ability_id, act.target_point, true);
+                    Actions()->UnitCommand(u, act.ability_id, act.target_point, true);
                 }
                 break;
             case ActionRaw::TargetType::TargetUnitTag:
                 for (auto& u : observed_self_units) {
-                    action->UnitCommand(u, act.ability_id, findUnit(act.target_tag), true);
+                    Actions()->UnitCommand(u, act.ability_id, findUnit(act.target_tag), true);
                 }
                 break;
             }

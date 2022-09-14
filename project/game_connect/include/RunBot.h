@@ -5,13 +5,14 @@
 #define SimulateSize 100				//一个客户端模拟解的个数
 #define GenerationsMaxN 200         //最大代数
 #define CommandSize 10				//一个解的命令长度
-#define SimulateStepSize 100		//模拟步长
+#define SimulateStepSize 50		//模拟步长
 #define CountN 10                   //控制代数
 #define p_cross 0.7                 //交叉概率
 #define p_mutate 0.05               //变异概率
 
 
 #include <iostream>
+#include <fstream>
 #include <cstdlib>
 #include <algorithm>
 #include <ctime>
@@ -62,6 +63,7 @@ namespace sc2 {
 		Population m_blank_pop;
 
 		Solution m_best_solution;
+		float m_avg_fitness;
 
 	public:
 		int m_count = 0;

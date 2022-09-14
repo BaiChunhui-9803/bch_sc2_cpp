@@ -16,7 +16,8 @@
 int main(int argc, char* argv[]) {
 	using namespace std;
 	sc2::RunBot bot;
-	std::string map = "Example/MarineMicro.SC2Map";
+	//std::string map = "Example/MarineMicro.SC2Map";
+	std::string map = "Example/MarineMicro_6enemy.SC2Map";
 	std::string blank_map = "Example/BlankMap.SC2Map";
 	sc2::Coordinator coordinator;
 

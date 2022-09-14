@@ -3,7 +3,8 @@
 bool sc2::BotAllocation::LaunchMultiGame(size_t pop_size, size_t step_size, std::vector<std::vector<Solution>> load_solutions, State load_state) {
 
 	// 游戏必要信息设置
-	std::string map = "Example/MarineMicro.SC2Map";
+	//std::string map = "Example/MarineMicro.SC2Map";
+	std::string map = "Example/MarineMicro_6enemy.SC2Map";
 	std::string blank_map = "Example/BlankMap.SC2Map";
 	// bots对应Client，simulators对应coordinator
 	m_bots.resize(pop_size);
