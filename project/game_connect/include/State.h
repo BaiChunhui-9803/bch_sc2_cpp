@@ -5,7 +5,7 @@
 #include "Command.h"
 #include "Solution.h"
 
-#define SimulateSize 10				//一个客户端模拟解的个数
+#define SimulateSize 100				//一个客户端模拟解的个数
 
 namespace sc2 {
 

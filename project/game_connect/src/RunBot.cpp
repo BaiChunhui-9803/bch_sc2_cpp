@@ -129,7 +129,7 @@ void RunBot::setOrders(Command commands) {
 
 std::vector<std::pair<size_t, std::vector<MyScore>>> sc2::RunBot::runMultiSolution(std::vector<std::vector<Solution>> load_solutions, State load_state) {
 	// 每个simulator占用一个Command
-	//BotAllocation m_bot_allocation;
+	BotAllocation m_bot_allocation;
 	if (load_state.isBlank()) {
 		m_bot_allocation.LaunchMultiGame(PopSize, SimulateStepSize, load_solutions);
 	}
@@ -143,7 +143,7 @@ std::vector<std::pair<size_t, std::vector<MyScore>>> sc2::RunBot::runMultiSoluti
 Solution sc2::RunBot::generateSolution(State load_state) {
 	Solution sol(2 * CommandSize);
 	sol.s_commands.c_actions.resize(2 * CommandSize);
-	float trained_weight = 40.0;
+	float trained_weight = 2.0;
 	if (load_state.isBlank()) {
 		for (size_t i = 0; i < 2 * CommandSize; ++i) {
 			if (i % 2 == 0) {
@@ -189,6 +189,8 @@ Solution sc2::RunBot::GA() {
 
 	calculateFitness();
 
+	std::cout << "best:" << m_best_solution.s_objectives << std::endl;
+
 	//迭代过程
 	for (m_count = 0; m_count <= GenerationsMaxN; ++m_count) {
 		//选择
@@ -199,6 +201,8 @@ Solution sc2::RunBot::GA() {
 		mutate();
 
 		calculateFitness();
+
+		std::cout << "best:" << m_best_solution.s_objectives << std::endl;
 	}
 
 	return m_best_solution;
@@ -270,7 +274,7 @@ void sc2::RunBot::select() {
 	tempColony[0] = m_best_solution;
 	for (size_t t = 1; t < m_population.size(); ++t) {
 		float ran = rand() % RAND_MAX + 1;
-		s = (float)ran / 100.0;
+		s = (float)ran;
 		for (i = 1; i < m_population.size(); ++i) {
 			if (SelectP[i] >= s)
 				break;
@@ -280,7 +284,7 @@ void sc2::RunBot::select() {
 	}
 	for (i = 0; i < m_population.size(); ++i) {
 		m_population[i] = tempColony[i];
-		std::cout << m_population[i].s_commands.c_actions[i].target_point.x << std::endl;
+		//std::cout << m_population[i].s_commands.c_actions[0].target_point.x << std::endl;
 	}
 }
 
@@ -329,6 +333,7 @@ void sc2::RunBot::cross() {
 }
 
 void sc2::RunBot::mutate() {
+
 }
 
 
