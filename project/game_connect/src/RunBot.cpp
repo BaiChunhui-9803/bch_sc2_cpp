@@ -129,7 +129,7 @@ void RunBot::setOrders(Command commands) {
 
 std::vector<std::pair<size_t, std::vector<MyScore>>> sc2::RunBot::runMultiSolution(std::vector<std::vector<Solution>> load_solutions, State load_state) {
 	// 每个simulator占用一个Command
-	BotAllocation m_bot_allocation;
+	//BotAllocation m_bot_allocation;
 	if (load_state.isBlank()) {
 		m_bot_allocation.LaunchMultiGame(PopSize, SimulateStepSize, load_solutions);
 	}
@@ -206,7 +206,7 @@ Solution sc2::RunBot::GA() {
 
 void sc2::RunBot::initializeAlgorithm() {
 	m_population.resize(PopSize * SimulateSize);
-	m_best_solution.s_objectives.resize(1);
+	m_blank_pop.resize(PopSize * SimulateSize);
 	m_best_solution.s_commands.c_actions.resize(CommandSize * 2);
 }
 
@@ -223,6 +223,7 @@ void sc2::RunBot::calculateFitness() {
 	size_t this_best_id = 0;
 	for (size_t i = 0; i < scores.size(); ++i) {
 		for (size_t j = 0; j < scores[i].second.size(); ++j) {
+			m_population[i * SimulateSize + j].s_objectives = scores[i].second[j].m_total_score;
 			std::cout << "[" << i << "][" << j << "]分数:" << scores[i].second[j].m_total_score << std::endl;
 			if (scores[i].second[j].m_total_score > this_best) {
 				this_best = scores[i].second[j].m_total_score;
@@ -231,17 +232,100 @@ void sc2::RunBot::calculateFitness() {
 		}
 	}
 
-	if (this_best > m_best_solution.s_objectives[0]) {
+	if (this_best > m_best_solution.s_objectives) {
 		m_best_solution = m_population[this_best_id];
 	}
 
 }
 
 void sc2::RunBot::select() {
-
+	std::vector<Solution> tempColony = m_blank_pop;
+	size_t i;
+	float sum = 0.0;
+	float avg = 0.0;
+	float s;
+	float fitness[PopSize * SimulateSize] = { 0 };
+	float gailv[PopSize * SimulateSize] = { 0 };
+	float SelectP[PopSize * SimulateSize + 1] = { 0 };
+	for (i = 0; i < m_population.size(); ++i) {
+		fitness[i] = m_population[i].s_objectives;
+		if (fitness[i] > 0) {
+			sum += fitness[i];
+		}
+		else {
+			gailv[i] = 2;
+		}
+	}
+	for (i = 0; i < m_population.size(); ++i) {
+		if (gailv[i] >= 1) {
+			gailv[i] = 0;
+		}
+		else {
+			gailv[i] = fitness[i] / sum;
+		}
+	}
+	for (i = 0; i < m_population.size(); ++i) {
+		SelectP[i + 1] = SelectP[i] + gailv[i] * RAND_MAX;
+	}
+	tempColony[0] = m_best_solution;
+	for (size_t t = 1; t < m_population.size(); ++t) {
+		float ran = rand() % RAND_MAX + 1;
+		s = (float)ran / 100.0;
+		for (i = 1; i < m_population.size(); ++i) {
+			if (SelectP[i] >= s)
+				break;
+		}
+		tempColony[t] = m_population[i - 1];
+		//memcpy(tempColony[t], m_population[i - 1], sizeof(tempColony[t]))
+	}
+	for (i = 0; i < m_population.size(); ++i) {
+		m_population[i] = tempColony[i];
+		std::cout << m_population[i].s_commands.c_actions[i].target_point.x << std::endl;
+	}
 }
 
 void sc2::RunBot::cross() {
+	int i, j, t, l;
+	int a, b, ca, cb;
+	Command cmd1, cmd2;
+	cmd1.c_actions.resize(2 * CommandSize);
+	cmd2.c_actions.resize(2 * CommandSize);
+	for (i = 0; i < m_population.size(); i++) {
+		double s = ((double)(rand() % RAND_MAX)) / RAND_MAX;
+		if (s < p_cross) {
+			cb = rand() % m_population.size();
+			ca = rand() % m_population.size();
+			//if (m_population[ca] == m_best_solution || m_population[ca] == m_best_solution) {
+			//	continue;
+			//}
+			do {
+				l = rand() % CommandSize;
+				a = rand() % CommandSize;
+			} while (l >= a);
+
+			for (j = 0; j < 2 * CommandSize; ++j) {
+				if (j < 2 * l) {
+					cmd1.c_actions[j] = m_population[ca].s_commands.c_actions[j];
+				} else if (j >= 2 * l && j < 2 * a) {
+					cmd1.c_actions[j] = m_population[cb].s_commands.c_actions[j];
+				} else {
+					cmd1.c_actions[j] = m_population[ca].s_commands.c_actions[j];
+				}
+			}
+			m_population[i].s_objectives = 0.0;
+			m_population[i].s_commands = cmd1;
+		}
+	}
+	for (i = 0; i < m_population.size(); i++) {
+		for (j = 0; j < m_population[i].s_commands.c_actions.size(); ++j) {
+			if (j % 2) {
+				if (m_population[i].s_commands.c_actions[j].target_point != m_population[i].s_commands.c_actions[j - 1].target_point) {
+					std::cout << "不一致！" << std::endl;
+					m_population[i].s_commands.c_actions[j].target_point = m_population[i].s_commands.c_actions[j - 1].target_point;
+				}
+			}
+		}
+	}
 }
 
 void sc2::RunBot::mutate() {
